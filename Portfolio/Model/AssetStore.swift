@@ -7,30 +7,17 @@
 //
 
 import Foundation
+import SwiftUI
+import Combine
 
-//class ClassifiedObjectCollection<T: Classifiable> {
-//    typealias ClassifiedObject = T
-//    var elements = [ClassifiedObject]()
-//
-//    func addElement(element: ClassifiedObject) {
-//        elements.append(element)
-//    }
-//
-//    func removeElement(element: ClassifiedObject) -> Bool {
-//        guard let index = elements.firstIndex(where: { $0.id == element.id }) else {
-//            return false
-//        }
-//
-//        elements.remove(at: index)
-//        return true
-//    }
-//}
-
-struct AssetStore {
+class AssetStore: BindableObject {
+    
+    // MARK: - Public Properties
+    let didChange = PassthroughSubject<AssetStore, Never>()
     
     // MARK: - Private Properties
-    private var securities: [Security]
-    var accounts: [Account]
+    private var securities: [Security] { didSet { didChange.send(self) }}
+    private var accounts: [Account]
     private var classifications: [Classification]
     private var transactions: [DepotTransaction]
     
@@ -74,4 +61,5 @@ struct AssetStore {
         
         return 1 + getIndentLevel(for: parent)
     }
+
 }

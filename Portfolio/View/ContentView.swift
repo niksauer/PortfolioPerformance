@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct ContentView : View {
-    let store = AssetStore(securities: securities, accounts: accounts, classifications: classifications, transactions: depotTransactions)
+    let assetStore = AssetStore(securities: securities, accounts: accounts, classifications: classifications, transactions: depotTransactions)
     
     var body: some View {
         NavigationView {
 //                SecurityView(securities: securities)
-            AssetView(store: store)
+            AssetView()
+                .environmentObject(assetStore)
 //                DepotView(depots: depots)
         }
     }

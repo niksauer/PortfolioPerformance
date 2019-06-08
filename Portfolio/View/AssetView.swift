@@ -10,15 +10,15 @@ import SwiftUI
 
 struct AssetView: View {
     // MARK: - Properties
-    let store: AssetStore
+    @EnvironmentObject var assetStore: AssetStore
     @State private var classificationType: ClassificationType = .AssetAllocation
 //    @Environment(\.editMode) var mode
     
     // MARK: - View
     var body: some View {
         List {
-            ForEach(self.store.getRootClassifications(for: self.classificationType)) { rootClassification in
-                RootClassificationSection(classification: rootClassification, store: self.store)
+            ForEach(self.assetStore.getRootClassifications(for: self.classificationType)) { rootClassification in
+                RootClassificationSection(classification: rootClassification)
             }
         }
         .listStyle(GroupedListStyle.Member.grouped)
@@ -51,10 +51,11 @@ struct AssetView: View {
 
 #if DEBUG
 struct FortuneView_Previews : PreviewProvider {
-    static let store = AssetStore(securities: securities, accounts: accounts, classifications: classifications, transactions: depotTransactions)
+    static let assetStore = AssetStore(securities: securities, accounts: accounts, classifications: classifications, transactions: depotTransactions)
     
     static var previews: some View {
-        AssetView(store: self.store)
+        AssetView()
+            .environmentObject(assetStore)
     }
 }
 #endif
@@ -112,16 +113,16 @@ struct AccountRow: View {
 
 struct RootClassificationSection: View {
     // MARK: - Properties
+    @EnvironmentObject var assetStore: AssetStore
     let classification: Classification
-    let store: AssetStore
     
     // MARK: - View
     var body: some View {
         Section(header: Text(classification.name).bold()) {
-            ClassificationEntriesView(classification: classification, store: store)
+            ClassificationEntriesView(classification: classification)
 
-            ForEach(self.store.getSubClassifications(for: self.classification)) { subClassification in
-                SubClassificationSection(classification: subClassification, store: self.store)
+            ForEach(self.assetStore.getSubClassifications(for: self.classification)) { subClassification in
+                SubClassificationSection(classification: subClassification)
             }
         }
     }
@@ -129,18 +130,18 @@ struct RootClassificationSection: View {
 
 struct ClassificationEntriesView: View {
     // MARK: - Properties
+    @EnvironmentObject var assetStore: AssetStore
     let classification: Classification
-    let store: AssetStore
     
     // MARK: - View
     var body: some View {
         Group {
-            ForEach(self.store.getSecurities(for: self.classification)) { security in
+            ForEach(self.assetStore.getSecurities(for: self.classification)) { security in
                 FortuneRow(security: security)
             }
             .onMove(perform: moveSecurity)
             
-            ForEach(self.store.getAccounts(for: self.classification)) { account in
+            ForEach(self.assetStore.getAccounts(for: self.classification)) { account in
                 AccountRow(account: account)
             }
             .onMove(perform: moveAccount)
@@ -173,27 +174,27 @@ struct SubClassificationFolder: View {
 
 struct SubClassificationSection: View {
     // MARK: - Properties
+    @EnvironmentObject var assetStore: AssetStore
     let classification: Classification
-    let store: AssetStore
     
     // MARK: - View
     var body: some View {
         Group {
-            SubClassificationFolder(classification: self.classification, indentLevel: self.store.getIndentLevel(for: classification))
+            SubClassificationFolder(classification: self.classification, indentLevel: self.assetStore.getIndentLevel(for: classification))
             
-            ForEach(self.store.getSecurities(for: self.classification)) { security in
+            ForEach(self.assetStore.getSecurities(for: self.classification)) { security in
                 FortuneRow(security: security)
             }
             .onMove(perform: move)
             
-            ForEach(self.store.getSubClassifications(for: self.classification)) { subClassification in
-                SubClassificationSection(classification: subClassification, store: self.store)
+            ForEach(self.assetStore.getSubClassifications(for: self.classification)) { subClassification in
+                SubClassificationSection(classification: subClassification)
             }
         }
     }
     
     // MARK: - Private Methods
-    private func move(from source: IndexSet, to destination: Int) {
+    func move(from source: IndexSet, to destination: Int) {
         
     }
 }
