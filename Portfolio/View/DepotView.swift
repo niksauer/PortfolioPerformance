@@ -45,6 +45,22 @@ struct DepotRow: View {
     }
 }
 
-struct DepotDetailView {
+struct DepotDetailView: View {
     let depot: Depot
+    
+    var body: some View {
+        HStack {
+            Text(self.depot.name)
+        }
+    }
+}
+
+struct AccountDetailView: View {
+    let account: Account
+    
+    var body: some View {
+        HStack {
+            Text(self.account.name)
+        }
+    }
 }

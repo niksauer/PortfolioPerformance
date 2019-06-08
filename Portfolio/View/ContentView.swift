@@ -9,12 +9,12 @@
 import SwiftUI
 
 struct ContentView : View {
-    let securities: [Security]
+    let store = AssetStore(securities: securities, accounts: accounts, classifications: classifications, transactions: depotTransactions)
     
     var body: some View {
         NavigationView {
 //                SecurityView(securities: securities)
-            FortuneView(store: FortuneStore(securities: securities, classifications: classifications, transactions: depotTransactions))
+            AssetView(store: store)
 //                DepotView(depots: depots)
         }
     }
@@ -23,7 +23,7 @@ struct ContentView : View {
 #if DEBUG
 struct ContentView_Previews : PreviewProvider {
     static var previews: some View {
-        ContentView(securities: securities)
+        ContentView()
     }
 }
 #endif

@@ -61,9 +61,11 @@ struct SecurityRow: View {
 }
 
 struct SecurityDetailView: View {
+    // MARK: - Properties
     let security: Security
     
+    // MARK: - View
     var body: some View {
-        Text(security.name)
+        Text(self.security.name)
     }
 }

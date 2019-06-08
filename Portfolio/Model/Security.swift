@@ -19,7 +19,7 @@ enum ClassificationType: String {
     case Region = "Region"
     case Industry = "Industry"
     case InvestmentType = "Investment Type"
-    case AssetType = "Asset Type"
+    case SecurityType = "Security Type"
 }
 
 struct Classification: Identifiable {
@@ -27,7 +27,8 @@ struct Classification: Identifiable {
     var name: String
     let type: ClassificationType
     var parentID: UUID?
-    var securities = Set<UUID>()
+    var associatedObjects = Set<UUID>()
+    var isCollapsed = false
 }
 
 struct Security: Identifiable {
@@ -43,14 +44,20 @@ struct Security: Identifiable {
 
 #if DEBUG
 let classifications: [Classification] = [
-    Classification(name: "Risikobehafter Portfolioteil", type: .AssetAllocation, parentID: nil, securities: Set(arrayLiteral: securities[1].id)),
-    Classification(name: "Risikoarmer Portfolioteil", type: .AssetAllocation, parentID: nil),
-    Classification(name: "Kryptowährungen", type: .AssetAllocation, parentID: nil, securities: Set(arrayLiteral: securities[0].id))
+    // asset allocation
+    Classification(name: "Risikobehafter Portfolioteil", type: .AssetAllocation),
+    Classification(name: "Risikoarmer Portfolioteil", type: .AssetAllocation, associatedObjects: Set(accounts.map({ $0.id }))),
+    Classification(name: "Kryptowährungen", type: .AssetAllocation, associatedObjects: Set(arrayLiteral: securities[0].id)),
+    
+    Classification(name: "Ohne Klassifikation", type: .AssetAllocation),
+    
+    // investment type
+    Classification(name: "Barvermögen", type: .InvestmentType, associatedObjects: Set(accounts.map({ $0.id })))
 ]
 
 let securities: [Security] = [
     Security(name: "ETH-EUR", symbol: "ETH-EUR"),
     Security(name: "MSCI Emerging Markets IMI UCITS", WKN: "A111X9", ISIN: "IE00BKM4GZ66", TER: 0.18, fee: 1.5, supplier: "iShares Core"),
-    Security(name: "MSCI Emerging Markets IMI UCITS", WKN: "A111X9", ISIN: "IE00BKM4GZ66", TER: 0.18, fee: 1.5, supplier: "iShares Core")
+    Security(name: "MSCI World UCITS ETF - EUR (D)", WKN: "A2H9QY", ISIN: "LU1737652237", TER: 0.18, fee: 0, supplier: "Amundi")
 ]
 #endif
