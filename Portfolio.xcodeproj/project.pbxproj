@@ -13,6 +13,14 @@
 		243D927522AAEB4200BECB6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 243D927422AAEB4200BECB6C /* Assets.xcassets */; };
 		243D927822AAEB4200BECB6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 243D927722AAEB4200BECB6C /* Preview Assets.xcassets */; };
 		243D927B22AAEB4200BECB6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 243D927922AAEB4200BECB6C /* LaunchScreen.storyboard */; };
+		243D928422AAFCED00BECB6C /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928322AAFCED00BECB6C /* Security.swift */; };
+		243D928622AAFD1400BECB6C /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928522AAFD1400BECB6C /* Account.swift */; };
+		243D928822AB07F800BECB6C /* Depot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928722AB07F800BECB6C /* Depot.swift */; };
+		243D928A22AB081400BECB6C /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928922AB081400BECB6C /* Manager.swift */; };
+		243D928C22AB0D0800BECB6C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928B22AB0D0800BECB6C /* Transaction.swift */; };
+		243D928F22AB25DF00BECB6C /* DepotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928E22AB25DF00BECB6C /* DepotView.swift */; };
+		243D929122AB261A00BECB6C /* FortuneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D929022AB261A00BECB6C /* FortuneView.swift */; };
+		243D929322AB264700BECB6C /* SecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D929222AB264700BECB6C /* SecurityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +32,14 @@
 		243D927722AAEB4200BECB6C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		243D927A22AAEB4200BECB6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		243D927C22AAEB4200BECB6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		243D928322AAFCED00BECB6C /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
+		243D928522AAFD1400BECB6C /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		243D928722AB07F800BECB6C /* Depot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Depot.swift; sourceTree = "<group>"; };
+		243D928922AB081400BECB6C /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		243D928B22AB0D0800BECB6C /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		243D928E22AB25DF00BECB6C /* DepotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepotView.swift; sourceTree = "<group>"; };
+		243D929022AB261A00BECB6C /* FortuneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneView.swift; sourceTree = "<group>"; };
+		243D929222AB264700BECB6C /* SecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +72,10 @@
 		243D926D22AAEB4100BECB6C /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
+				243D928D22AB22CA00BECB6C /* View */,
+				243D928222AAFCE300BECB6C /* Model */,
 				243D926E22AAEB4100BECB6C /* AppDelegate.swift */,
 				243D927022AAEB4100BECB6C /* SceneDelegate.swift */,
-				243D927222AAEB4100BECB6C /* ContentView.swift */,
 				243D927422AAEB4200BECB6C /* Assets.xcassets */,
 				243D927922AAEB4200BECB6C /* LaunchScreen.storyboard */,
 				243D927C22AAEB4200BECB6C /* Info.plist */,
@@ -73,6 +90,29 @@
 				243D927722AAEB4200BECB6C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		243D928222AAFCE300BECB6C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				243D928322AAFCED00BECB6C /* Security.swift */,
+				243D928522AAFD1400BECB6C /* Account.swift */,
+				243D928722AB07F800BECB6C /* Depot.swift */,
+				243D928922AB081400BECB6C /* Manager.swift */,
+				243D928B22AB0D0800BECB6C /* Transaction.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		243D928D22AB22CA00BECB6C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				243D927222AAEB4100BECB6C /* ContentView.swift */,
+				243D929222AB264700BECB6C /* SecurityView.swift */,
+				243D929022AB261A00BECB6C /* FortuneView.swift */,
+				243D928E22AB25DF00BECB6C /* DepotView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,8 +186,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				243D929322AB264700BECB6C /* SecurityView.swift in Sources */,
+				243D928622AAFD1400BECB6C /* Account.swift in Sources */,
+				243D928A22AB081400BECB6C /* Manager.swift in Sources */,
+				243D928C22AB0D0800BECB6C /* Transaction.swift in Sources */,
 				243D926F22AAEB4100BECB6C /* AppDelegate.swift in Sources */,
+				243D928822AB07F800BECB6C /* Depot.swift in Sources */,
+				243D928422AAFCED00BECB6C /* Security.swift in Sources */,
+				243D929122AB261A00BECB6C /* FortuneView.swift in Sources */,
 				243D927122AAEB4100BECB6C /* SceneDelegate.swift in Sources */,
+				243D928F22AB25DF00BECB6C /* DepotView.swift in Sources */,
 				243D927322AAEB4100BECB6C /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
