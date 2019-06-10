@@ -70,7 +70,15 @@ class AssetStore: BindableObject {
         return 1 + getHierarchyLevel(of: parent)
     }
     
-    // MARK: Security & Account
+    func deleteClassification(at source: IndexSet) {
+        
+    }
+    
+    func moveClassification(from source: IndexSet, to destination: Int) {
+        
+    }
+    
+    // MARK: Security
     func getSecurities(classification: Classification) -> [Security] {
         return securities.filter { classification.associatedObjects.contains($0.id) }
     }
@@ -79,12 +87,21 @@ class AssetStore: BindableObject {
         return securities.filter { !getClassifiedObjects(type: type).contains($0.id) }
     }
     
+    func moveSecurity(from source: IndexSet, to destination: Int) {
+        
+    }
+    
+    // MARK: Account
     func getAccounts(classification: Classification) -> [Account] {
         return accounts.filter { classification.associatedObjects.contains($0.id) }
     }
     
     func getUnclassifiedAccounts(type: ClassificationType) -> [Account] {
         return accounts.filter { !getClassifiedObjects(type: type).contains($0.id) }
+    }
+    
+    func moveAccount(from source: IndexSet, to destination: Int) {
+        //        source.sorted { $0 > $1 }.forEach { self.store.accounts.insert(store.rooms.remove(at: $0), at: destination) }
     }
     
     // MARK: - Private Methods

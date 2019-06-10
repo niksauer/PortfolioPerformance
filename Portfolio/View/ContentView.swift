@@ -8,21 +8,19 @@
 
 import SwiftUI
 
-struct ContentView : View {
+struct ContentView: View {
     let assetStore = AssetStore(securities: securities, accounts: accounts, classifications: classifications, transactions: depotTransactions)
     
     var body: some View {
         NavigationView {
-            AssetView()
+            ClassifiedObjectsView(classificationType: .AssetAllocation)
                 .environmentObject(assetStore)
-//                SecurityView(securities: securities)
-//                DepotView(depots: depots)
         }
     }
 }
 
 #if DEBUG
-struct ContentView_Previews : PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }

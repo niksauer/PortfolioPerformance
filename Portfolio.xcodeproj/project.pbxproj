@@ -19,9 +19,11 @@
 		243D928A22AB081400BECB6C /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928922AB081400BECB6C /* Manager.swift */; };
 		243D928C22AB0D0800BECB6C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928B22AB0D0800BECB6C /* Transaction.swift */; };
 		243D928F22AB25DF00BECB6C /* DepotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928E22AB25DF00BECB6C /* DepotView.swift */; };
-		243D929122AB261A00BECB6C /* AssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D929022AB261A00BECB6C /* AssetView.swift */; };
+		243D929122AB261A00BECB6C /* ClassifiedObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D929022AB261A00BECB6C /* ClassifiedObjectsView.swift */; };
 		243D929322AB264700BECB6C /* SecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D929222AB264700BECB6C /* SecurityView.swift */; };
 		2451424422ABF9E300BAFD5C /* AssetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2451424322ABF9E300BAFD5C /* AssetStore.swift */; };
+		24E814CC22AED3DA00115D29 /* ClassificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E814CB22AED3DA00115D29 /* ClassificationsView.swift */; };
+		24E814CE22AEE39C00115D29 /* ClassificationSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E814CD22AEE39C00115D29 /* ClassificationSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,9 +41,11 @@
 		243D928922AB081400BECB6C /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		243D928B22AB0D0800BECB6C /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		243D928E22AB25DF00BECB6C /* DepotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepotView.swift; sourceTree = "<group>"; };
-		243D929022AB261A00BECB6C /* AssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetView.swift; sourceTree = "<group>"; };
+		243D929022AB261A00BECB6C /* ClassifiedObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifiedObjectsView.swift; sourceTree = "<group>"; };
 		243D929222AB264700BECB6C /* SecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityView.swift; sourceTree = "<group>"; };
 		2451424322ABF9E300BAFD5C /* AssetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetStore.swift; sourceTree = "<group>"; };
+		24E814CB22AED3DA00115D29 /* ClassificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationsView.swift; sourceTree = "<group>"; };
+		24E814CD22AEE39C00115D29 /* ClassificationSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,10 +116,20 @@
 			children = (
 				243D927222AAEB4100BECB6C /* ContentView.swift */,
 				243D929222AB264700BECB6C /* SecurityView.swift */,
-				243D929022AB261A00BECB6C /* AssetView.swift */,
 				243D928E22AB25DF00BECB6C /* DepotView.swift */,
+				24E814CF22AEE3B600115D29 /* Classification */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		24E814CF22AEE3B600115D29 /* Classification */ = {
+			isa = PBXGroup;
+			children = (
+				24E814CB22AED3DA00115D29 /* ClassificationsView.swift */,
+				243D929022AB261A00BECB6C /* ClassifiedObjectsView.swift */,
+				24E814CD22AEE39C00115D29 /* ClassificationSection.swift */,
+			);
+			path = Classification;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,12 +206,14 @@
 				243D929322AB264700BECB6C /* SecurityView.swift in Sources */,
 				243D928622AAFD1400BECB6C /* Account.swift in Sources */,
 				243D928A22AB081400BECB6C /* Manager.swift in Sources */,
+				24E814CE22AEE39C00115D29 /* ClassificationSection.swift in Sources */,
 				243D928C22AB0D0800BECB6C /* Transaction.swift in Sources */,
 				243D926F22AAEB4100BECB6C /* AppDelegate.swift in Sources */,
 				2451424422ABF9E300BAFD5C /* AssetStore.swift in Sources */,
 				243D928822AB07F800BECB6C /* Depot.swift in Sources */,
+				24E814CC22AED3DA00115D29 /* ClassificationsView.swift in Sources */,
 				243D928422AAFCED00BECB6C /* Security.swift in Sources */,
-				243D929122AB261A00BECB6C /* AssetView.swift in Sources */,
+				243D929122AB261A00BECB6C /* ClassifiedObjectsView.swift in Sources */,
 				243D927122AAEB4100BECB6C /* SceneDelegate.swift in Sources */,
 				243D928F22AB25DF00BECB6C /* DepotView.swift in Sources */,
 				243D927322AAEB4100BECB6C /* ContentView.swift in Sources */,
