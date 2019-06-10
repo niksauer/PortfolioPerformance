@@ -45,14 +45,14 @@ struct ClassifiedObjectsView: View {
                         ClassifiedSecurityRow(security: security)
                     }
                 }
-                .onMove(perform: self.assetStore.moveSecurity)
+                .onMove(perform: self.assetStore.moveUnclassifiedSecurity)
                 
                 ForEach(self.assetStore.getUnclassifiedAccounts(type: self.classificationType)) { account in
                     NavigationButton(destination: AccountDetailView(account: account)) {
                         ClassifiedAccountRow(account: account)
                     }
                 }
-                .onMove(perform: self.assetStore.moveAccount)
+                .onMove(perform: self.assetStore.moveUnclassifiedAccount)
             }
             
         }

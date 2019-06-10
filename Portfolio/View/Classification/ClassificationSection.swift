@@ -84,14 +84,14 @@ struct ClassificationEntriesView: View {
                     ClassifiedSecurityRow(security: security)
                 }
             }
-            .onMove(perform: self.assetStore.moveSecurity)
+            .onMove(perform: self.assetStore.moveClassifiedSecurity)
             
             ForEach(self.assetStore.getAccounts(classification: self.classification)) { account in
                 NavigationButton(destination: AccountDetailView(account: account)) {
                     ClassifiedAccountRow(account: account)
                 }
             }
-            .onMove(perform: self.assetStore.moveAccount)
+            .onMove(perform: self.assetStore.moveClassifiedAccount)
         }
     }
     
@@ -118,6 +118,9 @@ struct ClassifiedSecurityRow: View {
                 }
                 
                 Text(security.name)
+//                    .layoutPriority(100)
+//                    .allowsTightening(false)
+//                    .truncationMode(.tail)
             }
             
             Spacer()

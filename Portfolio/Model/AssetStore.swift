@@ -75,7 +75,8 @@ class AssetStore: BindableObject {
     }
     
     func moveClassification(from source: IndexSet, to destination: Int) {
-        
+//        source.sorted { $0 > $1 }.forEach { print("source: \($0)") }
+//        print("destination: \(destination)")
     }
     
     // MARK: Security
@@ -87,7 +88,11 @@ class AssetStore: BindableObject {
         return securities.filter { !getClassifiedObjects(type: type).contains($0.id) }
     }
     
-    func moveSecurity(from source: IndexSet, to destination: Int) {
+    func moveClassifiedSecurity(from source: IndexSet, to destination: Int) {
+        
+    }
+    
+    func moveUnclassifiedSecurity(from source: IndexSet, to destination: Int) {
         
     }
     
@@ -100,8 +105,12 @@ class AssetStore: BindableObject {
         return accounts.filter { !getClassifiedObjects(type: type).contains($0.id) }
     }
     
-    func moveAccount(from source: IndexSet, to destination: Int) {
-        //        source.sorted { $0 > $1 }.forEach { self.store.accounts.insert(store.rooms.remove(at: $0), at: destination) }
+    func moveClassifiedAccount(from source: IndexSet, to destination: Int) {
+        
+    }
+    
+    func moveUnclassifiedAccount(from source: IndexSet, to destination: Int) {
+        
     }
     
     // MARK: - Private Methods
@@ -109,6 +118,32 @@ class AssetStore: BindableObject {
         let classifications = self.classifications.filter { $0.type == type }
         
         return classifications.flatMap { $0.associatedObjects }
+    }
+    
+    private func getFlatClassificationHierarchy(type: ClassificationType, includeEntries: Bool) -> [String] {
+        func getFlatHierarchy(of classification: Classification) -> [String] {
+            var flatHierarchy = [String]()
+            
+            flatHierarchy.append(classification.name)
+            
+            if includeEntries {
+                for security in getSecurities(classification: classification) {
+                    flatHierarchy.append(security.name)
+                }
+                
+                for account in getAccounts(classification: classification) {
+                    flatHierarchy.append(account.name)
+                }
+            }
+            
+            for subClassification in getSubClassifications(of: classification) {
+                flatHierarchy.append(contentsOf: getFlatHierarchy(of: subClassification))
+            }
+            
+            return flatHierarchy
+        }
+        
+        return getRootClassifications(type: type).flatMap { getFlatHierarchy(of: $0) }
     }
     
 }
