@@ -14,12 +14,12 @@ enum ClassificationOption {
     case Custom(classification: Classification)
 }
 
-enum ClassificationType: String {
-    case AssetAllocation = "Asset Allocation"
+enum ClassificationType: String, CaseIterable {
+    case AssetAllocation = "Asset Allokation"
     case Region = "Region"
-    case Industry = "Industry"
-    case InvestmentType = "Investment Type"
-    case SecurityType = "Security Type"
+    case Industry = "Industrie"
+    case InvestmentType = "Anlagekategorie"
+    case SecurityType = "Wertpapierart"
 }
 
 struct Classification: Identifiable {
@@ -49,15 +49,15 @@ let classifications: [Classification] = [
     Classification(name: "Risikoarmer Portfolioteil", type: .AssetAllocation, associatedObjects: Set(accounts.map({ $0.id }))),
     Classification(name: "Kryptowährungen", type: .AssetAllocation, associatedObjects: Set(arrayLiteral: securities[0].id)),
     
-    Classification(name: "Ohne Klassifikation", type: .AssetAllocation),
-    
     // investment type
     Classification(name: "Barvermögen", type: .InvestmentType, associatedObjects: Set(accounts.map({ $0.id })))
 ]
 
 let securities: [Security] = [
     Security(name: "ETH-EUR", symbol: "ETH-EUR"),
-    Security(name: "MSCI Emerging Markets IMI UCITS", WKN: "A111X9", ISIN: "IE00BKM4GZ66", TER: 0.18, fee: 1.5, supplier: "iShares Core"),
-    Security(name: "MSCI World UCITS ETF - EUR (D)", WKN: "A2H9QY", ISIN: "LU1737652237", TER: 0.18, fee: 0, supplier: "Amundi")
+    Security(name: "MSCI Emerging Markets IMI", WKN: "A111X9", ISIN: "IE00BKM4GZ66", TER: 0.18, fee: 1.5, supplier: "iShares Core"),
+    Security(name: "MSCI World UCITS ETF - EUR (D)", WKN: "A2H9QY", ISIN: "LU1737652237", TER: 0.18, fee: 0, supplier: "Amundi"),
+    Security(name: "MSCI World Small Cap", WKN: "A2DWBY", ISIN: "IE00BF4RFH31", TER: 0.35, fee: 1.5, supplier: "iShares"),
+    Security(name: "FTSE EPRA/NAREIT Global Developed", WKN: "LYX0Y2", ISIN: "LU1832418773", TER: 0.45, fee: 0, supplier: "Lyxor")
 ]
 #endif

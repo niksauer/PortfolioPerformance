@@ -9,33 +9,72 @@
 import SwiftUI
 
 struct AssetView: View {
+
     // MARK: - Properties
     @EnvironmentObject var assetStore: AssetStore
     @State private var classificationType: ClassificationType = .AssetAllocation
-//    @Environment(\.editMode) var mode
+    @State private var showClassificationTypeSelection = false
+    @Environment(\.editMode) var mode
+    
+    private var classificationTypeActionSheet: ActionSheet {
+        var actions: [ActionSheet.Button] = ClassificationType.allCases.map { classificationType in
+            .default(Text(classificationType.rawValue)) {
+                self.showClassificationTypeSelection = false
+                self.classificationType = classificationType
+            }
+        }
+        
+        actions.append(.cancel { self.showClassificationTypeSelection = false })
+            
+        return ActionSheet(title: Text("Klassifizierungstyp"), buttons: actions)
+    }
     
     // MARK: - View
     var body: some View {
         List {
-            ForEach(self.assetStore.getRootClassifications(for: self.classificationType)) { rootClassification in
-                RootClassificationSection(classification: rootClassification)
+            Section(header: Text(self.classificationType.rawValue).bold()) {
+                ForEach(self.assetStore.getRootClassifications(type: self.classificationType)) { rootClassification in
+                    ClassificationSection(classification: rootClassification)
+                }
             }
+            
+            Section(header: Text("Ohne Klassifizierung").bold()) {
+                ForEach(self.assetStore.getUnclassifiedSecurities(type: self.classificationType)) { security in
+                    NavigationButton(destination: SecurityDetailView(security: security)) {
+                        AssetSecurityRow(security: security)
+                    }
+                }
+                .onMove(perform: AssetViewHelper.moveSecurity)
+                
+                ForEach(self.assetStore.getUnclassifiedAccounts(type: self.classificationType)) { account in
+                    NavigationButton(destination: AccountDetailView(account: account)) {
+                        AssetAccountRow(account: account)
+                    }
+                }
+                .onMove(perform: AssetViewHelper.moveAccount)
+            }
+            
         }
-        .listStyle(GroupedListStyle.Member.grouped)
-        .navigationBarTitle(Text(self.classificationType.rawValue))
+//        .listStyle(.grouped)
+        .navigationBarTitle(Text("Klassifizierung"), displayMode: .inline)
         .navigationBarItems(
             leading:
-                Button(action: {
-                    withAnimation {
-                        self.changeClassificationType()
+                HStack {
+                    Button(action: {
+                        self.showClassificationTypeSelection = true
+                    }) {
+                        Image(systemName: "list.bullet")
                     }
-                }) {
-                    Text("Classification")
+                    .presentation(self.showClassificationTypeSelection ? classificationTypeActionSheet : nil)
+                    
+                    Image(systemName: "folder.badge.plus")
+                        .padding(.leading, Length(integerLiteral: 8))
+                        .foregroundColor(.accentColor)
                 },
             trailing:
                 EditButton()
         )
-        .tabItemLabel(Text("Assets")) // Image(systemName: "chart.pie.fill")
+        .tabItemLabel(Text("Klassifizierung")) // Image(systemName: "chart.pie.fill")
     }
     
     // MARK: - Private Methods
@@ -47,6 +86,7 @@ struct AssetView: View {
             self.classificationType = .AssetAllocation
         }
     }
+    
 }
 
 #if DEBUG
@@ -60,107 +100,84 @@ struct FortuneView_Previews : PreviewProvider {
 }
 #endif
 
-struct FortuneRow: View {
+struct AssetViewHelper {
+
+    // MARK: - Properties
+    static let basePadding = 20
+    
+    // MARK: - Public Methods
+    static func getIndentPadding(level: Int, isEntry: Bool) -> Int {
+        let folderPadding = level * basePadding
+        //    let entryPadding = (isEntry ? basePadding : 0)
+        
+        return folderPadding
+    }
+    
+    static func moveSecurity(from source: IndexSet, to destination: Int) {
+        
+    }
+    
+    static func moveAccount(from source: IndexSet, to destination: Int) {
+        //        source.sorted { $0 > $1 }.forEach { self.store.accounts.insert(store.rooms.remove(at: $0), at: destination) }
+    }
+    
+}
+
+struct AssetSecurityRow: View {
+    
     // MARK: - Properties
     let security: Security
     
     // MARK: - View
     var body: some View {
-        NavigationButton(destination: SecurityDetailView(security: security)) {
-            HStack {
-                Text("55")
-                    .padding(.all)
-                    .background(Color.green, cornerRadius: 12)
-                    .foregroundColor(.white)
-                
-                VStack(alignment: .leading) {
-                    if (security.supplier != nil) {
-                        Text(security.supplier!)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    Text(security.name)
+        HStack {
+            Text("55")
+                .padding(.all)
+                .background(Color.green, cornerRadius: 12)
+                .foregroundColor(.white)
+            
+            VStack(alignment: .leading) {
+                if (security.supplier != nil) {
+                    Text(security.supplier!)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                 }
                 
-                Spacer()
-                
-                Image(systemName: "arrowtriangle.up.fill")
-                    .foregroundColor(.green)
+                Text(security.name)
             }
+            
+            Spacer()
+            
+            Image(systemName: "arrowtriangle.up.fill")
+                .foregroundColor(.green)
         }
     }
+    
 }
 
-struct AccountRow: View {
+struct AssetAccountRow: View {
+    
     // MARK: - Properties
     let account: Account
     
     // MARK: - View
     var body: some View {
-        NavigationButton(destination: AccountDetailView(account: account)) {
-            HStack {
-                Text("55")
-                    .padding(.all)
-                    .background(Color.green, cornerRadius: 12)
-                    .foregroundColor(.white)
-                
-                Text(account.name)
-            }
-        }
-    }
-}
-
-struct RootClassificationSection: View {
-    // MARK: - Properties
-    @EnvironmentObject var assetStore: AssetStore
-    let classification: Classification
-    
-    // MARK: - View
-    var body: some View {
-        Section(header: Text(classification.name).bold()) {
-            ClassificationEntriesView(classification: classification)
-
-            ForEach(self.assetStore.getSubClassifications(for: self.classification)) { subClassification in
-                SubClassificationSection(classification: subClassification)
-            }
-        }
-    }
-}
-
-struct ClassificationEntriesView: View {
-    // MARK: - Properties
-    @EnvironmentObject var assetStore: AssetStore
-    let classification: Classification
-    
-    // MARK: - View
-    var body: some View {
-        Group {
-            ForEach(self.assetStore.getSecurities(for: self.classification)) { security in
-                FortuneRow(security: security)
-            }
-            .onMove(perform: moveSecurity)
+        HStack {
+            Text("55")
+                .padding(.all)
+                .background(Color.green, cornerRadius: 12)
+                .foregroundColor(.white)
             
-            ForEach(self.assetStore.getAccounts(for: self.classification)) { account in
-                AccountRow(account: account)
-            }
-            .onMove(perform: moveAccount)
+            Text(account.name)
         }
     }
     
-    // MARK: - Private Methods
-    private func moveSecurity(from source: IndexSet, to destination: Int) {
-    }
-    
-    private func moveAccount(from source: IndexSet, to destination: Int) {
-//        source.sorted { $0 > $1 }.forEach { self.store.accounts.insert(store.rooms.remove(at: $0), at: destination) }
-    }
 }
 
-struct SubClassificationFolder: View {
+struct ClassificationFolder: View {
+    
     // MARK: - Properties
     let classification: Classification
-    let indentLevel: Int
     
     // MARK: - View
     var body: some View {
@@ -168,11 +185,12 @@ struct SubClassificationFolder: View {
             Image(systemName: "folder.fill")
             Text(self.classification.name)
         }
-        .padding(.leading, Length(integerLiteral: self.indentLevel * 30 - 30))
     }
+    
 }
 
-struct SubClassificationSection: View {
+struct ClassificationEntriesView: View {
+    
     // MARK: - Properties
     @EnvironmentObject var assetStore: AssetStore
     let classification: Classification
@@ -180,21 +198,47 @@ struct SubClassificationSection: View {
     // MARK: - View
     var body: some View {
         Group {
-            SubClassificationFolder(classification: self.classification, indentLevel: self.assetStore.getIndentLevel(for: classification))
-            
-            ForEach(self.assetStore.getSecurities(for: self.classification)) { security in
-                FortuneRow(security: security)
+            ForEach(self.assetStore.getSecurities(classification: self.classification)) { security in
+                NavigationButton(destination: SecurityDetailView(security: security)) {
+                    AssetSecurityRow(security: security)
+                }
             }
-            .onMove(perform: move)
+            .onMove(perform: AssetViewHelper.moveSecurity)
             
-            ForEach(self.assetStore.getSubClassifications(for: self.classification)) { subClassification in
-                SubClassificationSection(classification: subClassification)
+            ForEach(self.assetStore.getAccounts(classification: self.classification)) { account in
+                NavigationButton(destination: AccountDetailView(account: account)) {
+                    AssetAccountRow(account: account)
+                }
+            }
+            .onMove(perform: AssetViewHelper.moveAccount)
+        }
+    }
+    
+}
+
+struct ClassificationSection: View {
+    
+    // MARK: - Properties
+    @EnvironmentObject var assetStore: AssetStore
+    let classification: Classification
+    
+    var indentLevel: Int {
+        return assetStore.getHierarchyLevel(of: classification)
+    }
+    
+    // MARK: - View
+    var body: some View {
+        Group {
+            ClassificationFolder(classification: self.classification)
+                .padding(.leading, Length(integerLiteral: AssetViewHelper.getIndentPadding(level: self.indentLevel, isEntry: false)))
+            
+            ClassificationEntriesView(classification: self.classification)
+                .padding(.leading, Length(integerLiteral: AssetViewHelper.getIndentPadding(level: self.indentLevel, isEntry: true)))
+            
+            ForEach(self.assetStore.getSubClassifications(of: self.classification)) { subClassification in
+                ClassificationSection(classification: subClassification)
             }
         }
     }
     
-    // MARK: - Private Methods
-    func move(from source: IndexSet, to destination: Int) {
-        
-    }
 }
