@@ -14,22 +14,16 @@ enum Currency {
     case USD
 }
 
-struct Account: Identifiable {
+struct Account: Classifiable {
     let id = UUID()
     var name: String
     var balance: Double
     var currency: Currency
 }
 
-#if DEBUG
-let accounts: [Account] = [
-    Account(name: "Comdirect Verrechnungskonto", balance: 999.8, currency: .EUR),
-    Account(name: "Comdirect Tagesgeld PLUS", balance: 4035.39, currency: .EUR),
-    Account(name: "Comdirect Girokonto", balance: 0, currency: .EUR)
-]
-
-let accountTransactions: [AccountTransaction] = [
-    AccountTransaction(type: .Deposit, value: 1250, date: Date(), account: accounts[0].id),
-    AccountTransaction(type: .Withdraw, value: -350, date: Date(), account: accounts[0].id)
-]
-#endif
+extension Account: HierarchyObject {
+    var title: String { return name }
+    var subtitle: String? { return nil }
+    var icon: Image { return Image(systemName: "a.square") }
+    var isHierarchyEntry: Bool { return true }
+}

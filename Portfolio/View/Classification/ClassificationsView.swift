@@ -21,11 +21,15 @@ struct ClassificationsView : View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(self.assetStore.getRootClassifications(type: self.classificationType)) { rootClassification in
-                    ClassificationSection(classification: rootClassification, showEntries: false)
+                ForEach(self.assetStore.getFlatClassificationHierarchy(type: self.classificationType, includeEntries: false)) { classifiedObject in
+                    HierarchyObjectRow(object: classifiedObject, disableClassificationMovement: false, disableEntryMovement: true)
                 }
-                .onMove(perform: self.assetStore.moveClassification)
-                .onDelete(perform: self.assetStore.deleteClassification)
+                .onMove(perform: { source, destination in
+                    self.assetStore.moveClassifiedObject(from: source, to: destination, classificationHierarchyType: self.classificationType, showsEntries: false)
+                })
+                .onDelete(perform: { source in
+                    self.assetStore.deleteClassification(at: source)
+                })
             }
             .navigationBarTitle(Text(self.classificationType.rawValue), displayMode: .inline)
             .navigationBarItems(

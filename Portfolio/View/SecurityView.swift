@@ -27,13 +27,13 @@ struct SecurityView: View {
     }
 }
 
-#if DEBUG
-struct SecurityView_Previews: PreviewProvider {
-    static var previews: some View {
-        SecurityView(securities: securities)
-    }
-}
-#endif
+//#if DEBUG
+//struct SecurityView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SecurityView(securities: securities)
+//    }
+//}
+//#endif
 
 
 struct SecurityRow: View {

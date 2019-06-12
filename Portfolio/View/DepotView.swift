@@ -26,13 +26,13 @@ struct DepotView: View {
     }
 }
 
-#if DEBUG
-struct DepotView_Previews : PreviewProvider {
-    static var previews: some View {
-        DepotView(depots: depots)
-    }
-}
-#endif
+//#if DEBUG
+//struct DepotView_Previews : PreviewProvider {
+//    static var previews: some View {
+//        DepotView(depots: depots)
+//    }
+//}
+//#endif
 
 
 struct DepotRow: View {

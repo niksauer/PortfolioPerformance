@@ -8,146 +8,80 @@
 
 import SwiftUI
 
-struct ClassificationSection: View {
+protocol HierarchyObject: Identifiable where ID == UUID {
+    var title: String { get }
+    var subtitle: String? { get }
+    var icon: Image { get }
+    var isHierarchyEntry: Bool { get }
+}
+
+struct FlatHierarchyObject: Identifiable {
     
     // MARK: - Public Properties
-    @EnvironmentObject var assetStore: AssetStore
-    let classification: Classification
-    let showEntries: Bool
+    let id: UUID
+    let title: String
+    let subtitle: String?
+    let icon: Image
+    let isHierarchyEntry: Bool
+    let wrappedType: String
     
-    var indentLevel: Int {
-        return assetStore.getHierarchyLevel(of: classification)
-    }
+    let hierarchyLevel: Int
+    let hasParent: Bool
     
-    // MARK: - View
-    var body: some View {
-        Group {
-            ClassificationFolder(classification: self.classification)
-                .padding(.leading, Length(integerLiteral: self.getIndentPadding(level: self.indentLevel, isEntry: false)))
-            
-            if self.showEntries {
-                ClassificationEntriesView(classification: self.classification)
-                    .padding(.leading, Length(integerLiteral: self.getIndentPadding(level: self.indentLevel, isEntry: true)))
-            }
-            
-            ForEach(self.assetStore.getSubClassifications(of: self.classification)) { subClassification in
-                ClassificationSection(classification: subClassification, showEntries: self.showEntries)
-            }
-        }
-    }
-    
-    // MARK: - Private Methods
-    func getIndentPadding(level: Int, isEntry: Bool) -> Int {
-        let basePadding = 20
-        let folderPadding = level * basePadding
-        //    let entryPadding = (isEntry ? basePadding : 0)
+    // MARK: - Initialization
+    init<T: HierarchyObject>(object: T, hierarchyLevel: Int, hasParent: Bool) {
+        self.id = object.id
+        self.title = object.title
+        self.subtitle = object.subtitle
+        self.icon = object.icon
+        self.isHierarchyEntry = object.isHierarchyEntry
+        self.wrappedType = "\(type(of: object))"
         
-        return folderPadding
+        self.hierarchyLevel = hierarchyLevel
+        self.hasParent = hasParent
     }
     
 }
 
-#if DEBUG
-struct ClassificationSection_Previews : PreviewProvider {
-    static var previews: some View {
-        ClassificationSection(classification: classifications[0], showEntries: true)
-    }
-}
-#endif
-
-struct ClassificationFolder: View {
+struct HierarchyObjectRow: View {
     
     // MARK: - Public Properties
-    let classification: Classification
+    let object: FlatHierarchyObject
+    let disableClassificationMovement: Bool
+    let disableEntryMovement: Bool
+    
+    // MARK: - Private Properties
+    private var disableMovement: Bool {
+        return !object.isHierarchyEntry && disableClassificationMovement || object.isHierarchyEntry && disableEntryMovement
+    }
     
     // MARK: - View
     var body: some View {
         HStack {
-            Image(systemName: "folder.fill")
-            Text(self.classification.name)
-        }
-    }
-    
-}
-
-struct ClassificationEntriesView: View {
-    
-    // MARK: - Public Properties
-    @EnvironmentObject var assetStore: AssetStore
-    let classification: Classification
-    
-    // MARK: - View
-    var body: some View {
-        Group {
-            ForEach(self.assetStore.getSecurities(classification: self.classification)) { security in
-                NavigationButton(destination: SecurityDetailView(security: security)) {
-                    ClassifiedSecurityRow(security: security)
-                }
-            }
-            .onMove(perform: self.assetStore.moveClassifiedSecurity)
-            
-            ForEach(self.assetStore.getAccounts(classification: self.classification)) { account in
-                NavigationButton(destination: AccountDetailView(account: account)) {
-                    ClassifiedAccountRow(account: account)
-                }
-            }
-            .onMove(perform: self.assetStore.moveClassifiedAccount)
-        }
-    }
-    
-}
-
-struct ClassifiedSecurityRow: View {
-    
-    // MARK: - Public Properties
-    let security: Security
-    
-    // MARK: - View
-    var body: some View {
-        HStack {
-            Text("55")
-                .padding(.all)
-                .background(Color.green, cornerRadius: 12)
-                .foregroundColor(.white)
-            
+            self.object.icon
+        
             VStack(alignment: .leading) {
-                if (security.supplier != nil) {
-                    Text(security.supplier!)
+                if (self.object.subtitle != nil) {
+                    Text(self.object.subtitle!)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
-                
-                Text(security.name)
-//                    .layoutPriority(100)
-//                    .allowsTightening(false)
-//                    .truncationMode(.tail)
+
+                Text(self.object.title)
             }
-            
-            Spacer()
-            
-            Image(systemName: "arrowtriangle.up.fill")
-                .foregroundColor(.green)
+            .padding(.leading, Length(integerLiteral: 8))
         }
+        .padding(.leading, Length(integerLiteral: self.getIndentPadding()))
+        .moveDisabled(self.disableMovement)
+    }
+    
+    // MARK: - Private Methods
+    private func getIndentPadding() -> Int {
+        let basePadding = 20
+        let folderPadding = object.hierarchyLevel * basePadding
+        let entryPadding = object.hasParent ? (object.isHierarchyEntry ? basePadding : 0) : 0
+        
+        return folderPadding + entryPadding
     }
     
 }
-
-struct ClassifiedAccountRow: View {
-    
-    // MARK: - Public Properties
-    let account: Account
-    
-    // MARK: - View
-    var body: some View {
-        HStack {
-            Text("55")
-                .padding(.all)
-                .background(Color.green, cornerRadius: 12)
-                .foregroundColor(.white)
-            
-            Text(account.name)
-        }
-    }
-    
-}
-
