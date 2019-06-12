@@ -18,7 +18,7 @@ struct ClassifiedObjectsView: View {
     @State private var showClassificationTypeSelection = false
     
     private var classificationTypeActionSheet: ActionSheet {
-        var actions: [ActionSheet.Button] = ClassificationType.allCases.map { classificationType in
+        var actions: [ActionSheet.Button] = assetStore.classificationTypes.map { classificationType in
             .default(Text(classificationType.rawValue)) {
                 self.showClassificationTypeSelection = false
                 self.classificationType = classificationType
@@ -34,27 +34,22 @@ struct ClassifiedObjectsView: View {
     var body: some View {
         List {
             Section(header: Text(self.classificationType.rawValue).bold()) {
-                ForEach(self.assetStore.getRootClassifications(type: self.classificationType)) { rootClassification in
-                    ClassificationSection(classification: rootClassification, showEntries: true)
+                ForEach(self.assetStore.getFlatClassificationHierarchy(type: self.classificationType, includeEntries: true)) { classifiedObject in
+                    HierarchyObjectRow(object: classifiedObject, disableClassificationMovement: true, disableEntryMovement: false)
                 }
+                .onMove(perform: { source, destination in
+                    self.assetStore.moveClassifiedObject(from: source, to: destination, classificationHierarchyType: self.classificationType, showsEntries: true)
+                })
             }
             
             Section(header: Text("Ohne Klassifizierung").bold()) {
-                ForEach(self.assetStore.getUnclassifiedSecurities(type: self.classificationType)) { security in
-                    NavigationButton(destination: SecurityDetailView(security: security)) {
-                        ClassifiedSecurityRow(security: security)
-                    }
+                ForEach(self.assetStore.getUnclassifiedObjects(type: self.classificationType)) { unclassifiedObject in
+                    HierarchyObjectRow(object: unclassifiedObject, disableClassificationMovement: true, disableEntryMovement: false)
                 }
-                .onMove(perform: self.assetStore.moveUnclassifiedSecurity)
-                
-                ForEach(self.assetStore.getUnclassifiedAccounts(type: self.classificationType)) { account in
-                    NavigationButton(destination: AccountDetailView(account: account)) {
-                        ClassifiedAccountRow(account: account)
-                    }
-                }
-                .onMove(perform: self.assetStore.moveUnclassifiedAccount)
+                .onMove(perform: { source, destination in
+                    self.assetStore.moveUnclassifiedObject(from: source, to: destination)
+                })
             }
-            
         }
 //        .listStyle(.grouped)
         .navigationBarTitle(Text("Klassifizierung"), displayMode: .inline)
@@ -79,13 +74,13 @@ struct ClassifiedObjectsView: View {
 
 }
 
-#if DEBUG
-struct FortuneView_Previews : PreviewProvider {
-    static let assetStore = AssetStore(securities: securities, accounts: accounts, classifications: classifications, transactions: depotTransactions)
-    
-    static var previews: some View {
-        ClassifiedObjectsView(classificationType: .AssetAllocation)
-            .environmentObject(assetStore)
-    }
-}
-#endif
+//#if DEBUG
+//struct FortuneView_Previews : PreviewProvider {
+//    static let assetStore = AssetStore(securities: securities, accounts: accounts, classifications: classifications, securityClassifications: securityClassifications)
+//    
+//    static var previews: some View {
+//        ClassifiedObjectsView(classificationType: .AssetAllocation)
+//            .environmentObject(assetStore)
+//    }
+//}
+//#endif

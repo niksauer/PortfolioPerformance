@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let assetStore = AssetStore(securities: securities, accounts: accounts, classifications: classifications, transactions: depotTransactions)
+    let assetStore = AssetStore()
     
     var body: some View {
         NavigationView {
@@ -19,10 +19,10 @@ struct ContentView: View {
     }
 }
 
-#if DEBUG
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-#endif
+//#if DEBUG
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
+//#endif

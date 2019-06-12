@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		243C76F322B1739600087D90 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C76F222B1739600087D90 /* Classification.swift */; };
+		243C76F522B1800B00087D90 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C76F422B1800B00087D90 /* TestData.swift */; };
 		243D926F22AAEB4100BECB6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D926E22AAEB4100BECB6C /* AppDelegate.swift */; };
 		243D927122AAEB4100BECB6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D927022AAEB4100BECB6C /* SceneDelegate.swift */; };
 		243D927322AAEB4100BECB6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D927222AAEB4100BECB6C /* ContentView.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		243C76F222B1739600087D90 /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
+		243C76F422B1800B00087D90 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		243D926B22AAEB4100BECB6C /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		243D926E22AAEB4100BECB6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		243D927022AAEB4100BECB6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				243D928322AAFCED00BECB6C /* Security.swift */,
+				243C76F422B1800B00087D90 /* TestData.swift */,
+				243C76F222B1739600087D90 /* Classification.swift */,
 				243D928522AAFD1400BECB6C /* Account.swift */,
 				243D928722AB07F800BECB6C /* Depot.swift */,
 				243D928922AB081400BECB6C /* Manager.swift */,
@@ -206,6 +212,7 @@
 				243D929322AB264700BECB6C /* SecurityView.swift in Sources */,
 				243D928622AAFD1400BECB6C /* Account.swift in Sources */,
 				243D928A22AB081400BECB6C /* Manager.swift in Sources */,
+				243C76F522B1800B00087D90 /* TestData.swift in Sources */,
 				24E814CE22AEE39C00115D29 /* ClassificationSection.swift in Sources */,
 				243D928C22AB0D0800BECB6C /* Transaction.swift in Sources */,
 				243D926F22AAEB4100BECB6C /* AppDelegate.swift in Sources */,
@@ -217,6 +224,7 @@
 				243D927122AAEB4100BECB6C /* SceneDelegate.swift in Sources */,
 				243D928F22AB25DF00BECB6C /* DepotView.swift in Sources */,
 				243D927322AAEB4100BECB6C /* ContentView.swift in Sources */,
+				243C76F322B1739600087D90 /* Classification.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
