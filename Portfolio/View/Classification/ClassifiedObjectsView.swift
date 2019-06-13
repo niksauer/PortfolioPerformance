@@ -42,14 +42,14 @@ struct ClassifiedObjectsView: View {
                 })
             }
             
-            Section(header: Text("Ohne Klassifizierung").bold()) {
-                ForEach(self.assetStore.getUnclassifiedObjects(type: self.classificationType)) { unclassifiedObject in
-                    HierarchyObjectRow(object: unclassifiedObject, disableClassificationMovement: true, disableEntryMovement: false)
-                }
-                .onMove(perform: { source, destination in
-                    self.assetStore.moveUnclassifiedObject(from: source, to: destination)
-                })
-            }
+//            Section(header: Text("Ohne Klassifizierung").bold()) {
+//                ForEach(self.assetStore.getUnclassifiedObjects(type: self.classificationType)) { unclassifiedObject in
+//                    HierarchyObjectRow(object: unclassifiedObject, disableClassificationMovement: true, disableEntryMovement: false)
+//                }
+//                .onMove(perform: { source, destination in
+//                    self.assetStore.moveUnclassifiedObject(from: source, to: destination)
+//                })
+//            }
         }
 //        .listStyle(.grouped)
         .navigationBarTitle(Text("Klassifizierung"), displayMode: .inline)

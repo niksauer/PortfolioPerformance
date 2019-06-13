@@ -52,6 +52,7 @@ struct TestData {
         var classifications = [Classification]()
         
             // asset allocation
+        let noAssetAllocation = Classification(name: "Ohne Klassifizierung", type: .AssetAllocation)
                 // level 0
         let riskfulClassification = Classification(name: "Risikobehafter Portfolioteil", type: .AssetAllocation)
         let risklessClassification = Classification(name: "Risikoarmer Portfolioteil", type: .AssetAllocation)
@@ -65,23 +66,52 @@ struct TestData {
         let developedCountriesClassification = Classification(name: "Aktien Industrieländer", type: .AssetAllocation, parentID: stockClassification.id)
         let emergingCountriesClassification = Classification(name: "Aktien Schwellenländer", type: .AssetAllocation, parentID: stockClassification.id)
         
-            // investment type
-        let cashResourcesClassification = Classification(name: "Barvermögen", type: .InvestmentType)
+        classifications.append(contentsOf: [riskfulClassification, risklessClassification, cryptoClassification, stockClassification, realEstateClassification, commodityClassification, developedCountriesClassification, emergingCountriesClassification, noAssetAllocation])
         
-        classifications.append(contentsOf: [riskfulClassification, risklessClassification, cryptoClassification, stockClassification, realEstateClassification, commodityClassification, developedCountriesClassification, emergingCountriesClassification, cashResourcesClassification])
+            // investment type
+        let noInvestmentType = Classification(name: "Ohne Klassifizierung", type: .InvestmentType)
+                // level 0
+        let cashResourcesClassification = Classification(name: "Barvermögen", type: .InvestmentType)
+        let equityCapitalClassification = Classification(name: "Eigenkapital", type: .InvestmentType)
+        let outsideCapitalClassification = Classification(name: "Fremdkapital", type: .InvestmentType)
+        let realEasteInvestmentClassification = Classification(name: "Immobilien", type: .InvestmentType)
+        let commodityInvestmentClassification = Classification(name: "Rohstoffe", type: .InvestmentType)
+        
+        classifications.append(contentsOf: [cashResourcesClassification, equityCapitalClassification, outsideCapitalClassification, realEasteInvestmentClassification, commodityInvestmentClassification, noInvestmentType])
+        
         self.classifications = classifications
         
         // security classification
         var securityClassifications = [ClassificationAssignment<Security, Classification>]()
+            // asset allocation
         securityClassifications.append(ClassificationAssignment<Security, Classification>(object: etherSecurity, classification: cryptoClassification))
         securityClassifications.append(ClassificationAssignment<Security, Classification>(object: worldSecurity, classification: developedCountriesClassification))
+        
+        securityClassifications.append(ClassificationAssignment<Security, Classification>(object: emergingMarketsSecurity, classification: noAssetAllocation))
+        securityClassifications.append(ClassificationAssignment<Security, Classification>(object: worldSmallCapSecurity, classification: noAssetAllocation))
+        securityClassifications.append(ClassificationAssignment<Security, Classification>(object: realEstateSecurity, classification: noAssetAllocation))
+        
+            // investment type
+        securityClassifications.append(ClassificationAssignment<Security, Classification>(object: etherSecurity, classification: noInvestmentType))
+        securityClassifications.append(ClassificationAssignment<Security, Classification>(object: worldSecurity, classification: noInvestmentType))
+        securityClassifications.append(ClassificationAssignment<Security, Classification>(object: worldSmallCapSecurity, classification: noInvestmentType))
+        securityClassifications.append(ClassificationAssignment<Security, Classification>(object: emergingMarketsSecurity, classification: noInvestmentType))
+        securityClassifications.append(ClassificationAssignment<Security, Classification>(object: realEstateSecurity, classification: realEasteInvestmentClassification))
+        
         self.securityClassifications = securityClassifications
         
         // account classification
         var accountClassifications = [ClassificationAssignment<Account, Classification>]()
+            // asset allocation
         accountClassifications.append(ClassificationAssignment<Account, Classification>(object: depotAccount, classification: risklessClassification))
         accountClassifications.append(ClassificationAssignment<Account, Classification>(object: savingsAccount, classification: risklessClassification))
         accountClassifications.append(ClassificationAssignment<Account, Classification>(object: bankAccount, classification: risklessClassification))
+        
+            // investment type
+        accountClassifications.append(ClassificationAssignment<Account, Classification>(object: depotAccount, classification: cashResourcesClassification))
+        accountClassifications.append(ClassificationAssignment<Account, Classification>(object: savingsAccount, classification: cashResourcesClassification))
+        accountClassifications.append(ClassificationAssignment<Account, Classification>(object: bankAccount, classification: cashResourcesClassification))
+        
         self.accountClassifications = accountClassifications
         
         // depots
