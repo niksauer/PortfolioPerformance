@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-enum ClassificationType: Hashable {
+enum AssetClassificationType: Hashable {
     case AssetAllocation
     case Region
     case Industry
@@ -18,7 +18,7 @@ enum ClassificationType: Hashable {
     case Custom(name: String)
 }
 
-extension ClassificationType: RawRepresentable {
+extension AssetClassificationType: RawRepresentable {
     typealias RawValue = String
     
     init?(rawValue: String) {
@@ -56,23 +56,6 @@ extension ClassificationType: RawRepresentable {
     }
 }
 
-struct Classification: ClassificationOption {
-    let id = UUID()
-    let name: String
-    let type: ClassificationType
-    var parentID: UUID?
-    var isCollapsed = false
-    
-    var category: String { return type.rawValue }
-}
-
-extension Classification: HierarchyObject {
-    var title: String { return name }
-    var subtitle: String? { return nil }
-    var icon: Image { return Image(systemName: "folder.fill") }
-    var isHierarchyEntry: Bool { return false }
-}
-
 protocol ClassificationOption: Identifiable {
     var category: String { get }
 }
@@ -91,4 +74,21 @@ struct ClassificationAssignment<T: Classifiable, S: ClassificationOption> {
         self.classificationID = classification.id
         self.type = classification.category
     }
+}
+
+struct Classification: ClassificationOption {
+    let id = UUID()
+    let name: String
+    let type: AssetClassificationType
+    var parentID: UUID?
+    var isCollapsed = false
+    
+    var category: String { return type.rawValue }
+}
+
+extension Classification: AssetClassificationHierarchyObjectModel {
+    var title: String { return name }
+    var subtitle: String? { return nil }
+    var icon: Image { return Image(systemName: "folder.fill") }
+    var isHierarchyEntry: Bool { return false }
 }

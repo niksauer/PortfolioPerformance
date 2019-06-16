@@ -9,20 +9,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    let assetStore = AssetStore()
+    let assetClassificationViewModel = AssetClassificationViewModel()
     
-    var body: some View {
-        NavigationView {
-            ClassifiedObjectsView(classificationType: .AssetAllocation)
-                .environmentObject(assetStore)
+    var body: some View {        
+        return NavigationView {
+            AssetClassificationView(viewModel: assetClassificationViewModel)
         }
     }
 }
 
-//#if DEBUG
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
-//#endif
+#if DEBUG
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+#endif

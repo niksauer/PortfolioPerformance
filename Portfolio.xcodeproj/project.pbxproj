@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		243193E322B3060C009941B4 /* BalanceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243193E222B3060C009941B4 /* BalanceSheet.swift */; };
+		243193E522B3068A009941B4 /* ClassificationHierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243193E422B3068A009941B4 /* ClassificationHierarchyView.swift */; };
 		243C76F322B1739600087D90 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C76F222B1739600087D90 /* Classification.swift */; };
 		243C76F522B1800B00087D90 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C76F422B1800B00087D90 /* TestData.swift */; };
 		243D926F22AAEB4100BECB6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D926E22AAEB4100BECB6C /* AppDelegate.swift */; };
@@ -21,14 +23,18 @@
 		243D928A22AB081400BECB6C /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928922AB081400BECB6C /* Manager.swift */; };
 		243D928C22AB0D0800BECB6C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928B22AB0D0800BECB6C /* Transaction.swift */; };
 		243D928F22AB25DF00BECB6C /* DepotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D928E22AB25DF00BECB6C /* DepotView.swift */; };
-		243D929122AB261A00BECB6C /* ClassifiedObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D929022AB261A00BECB6C /* ClassifiedObjectsView.swift */; };
+		243D929122AB261A00BECB6C /* AssetClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D929022AB261A00BECB6C /* AssetClassificationView.swift */; };
 		243D929322AB264700BECB6C /* SecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D929222AB264700BECB6C /* SecurityView.swift */; };
+		2440B80222B5ADC400A63BA6 /* ClassificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440B80122B5ADC400A63BA6 /* ClassificationsViewModel.swift */; };
+		2440B80522B5B02800A63BA6 /* AssetClassificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440B80422B5B02800A63BA6 /* AssetClassificationViewModel.swift */; };
 		2451424422ABF9E300BAFD5C /* AssetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2451424322ABF9E300BAFD5C /* AssetStore.swift */; };
 		24E814CC22AED3DA00115D29 /* ClassificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E814CB22AED3DA00115D29 /* ClassificationsView.swift */; };
-		24E814CE22AEE39C00115D29 /* ClassificationSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E814CD22AEE39C00115D29 /* ClassificationSection.swift */; };
+		24E814CE22AEE39C00115D29 /* AssetClassificationHierarchyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E814CD22AEE39C00115D29 /* AssetClassificationHierarchyObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		243193E222B3060C009941B4 /* BalanceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSheet.swift; sourceTree = "<group>"; };
+		243193E422B3068A009941B4 /* ClassificationHierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationHierarchyView.swift; sourceTree = "<group>"; };
 		243C76F222B1739600087D90 /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
 		243C76F422B1800B00087D90 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		243D926B22AAEB4100BECB6C /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,11 +51,13 @@
 		243D928922AB081400BECB6C /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		243D928B22AB0D0800BECB6C /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		243D928E22AB25DF00BECB6C /* DepotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepotView.swift; sourceTree = "<group>"; };
-		243D929022AB261A00BECB6C /* ClassifiedObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifiedObjectsView.swift; sourceTree = "<group>"; };
+		243D929022AB261A00BECB6C /* AssetClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetClassificationView.swift; sourceTree = "<group>"; };
 		243D929222AB264700BECB6C /* SecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityView.swift; sourceTree = "<group>"; };
+		2440B80122B5ADC400A63BA6 /* ClassificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationsViewModel.swift; sourceTree = "<group>"; };
+		2440B80422B5B02800A63BA6 /* AssetClassificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetClassificationViewModel.swift; sourceTree = "<group>"; };
 		2451424322ABF9E300BAFD5C /* AssetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetStore.swift; sourceTree = "<group>"; };
 		24E814CB22AED3DA00115D29 /* ClassificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationsView.swift; sourceTree = "<group>"; };
-		24E814CD22AEE39C00115D29 /* ClassificationSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationSection.swift; sourceTree = "<group>"; };
+		24E814CD22AEE39C00115D29 /* AssetClassificationHierarchyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetClassificationHierarchyObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +128,8 @@
 		243D928D22AB22CA00BECB6C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2440B7FF22B5AC1200A63BA6 /* Generic */,
+				24BEBB1F22B301F30088A397 /* Balance Sheet */,
 				243D927222AAEB4100BECB6C /* ContentView.swift */,
 				243D929222AB264700BECB6C /* SecurityView.swift */,
 				243D928E22AB25DF00BECB6C /* DepotView.swift */,
@@ -128,12 +138,46 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		24E814CF22AEE3B600115D29 /* Classification */ = {
+		2440B7FF22B5AC1200A63BA6 /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				243193E422B3068A009941B4 /* ClassificationHierarchyView.swift */,
+			);
+			path = Generic;
+			sourceTree = "<group>";
+		};
+		2440B80022B5ADB000A63BA6 /* Classifications */ = {
 			isa = PBXGroup;
 			children = (
 				24E814CB22AED3DA00115D29 /* ClassificationsView.swift */,
-				243D929022AB261A00BECB6C /* ClassifiedObjectsView.swift */,
-				24E814CD22AEE39C00115D29 /* ClassificationSection.swift */,
+				2440B80122B5ADC400A63BA6 /* ClassificationsViewModel.swift */,
+			);
+			path = Classifications;
+			sourceTree = "<group>";
+		};
+		2440B80322B5AE9B00A63BA6 /* AssetClassification */ = {
+			isa = PBXGroup;
+			children = (
+				243D929022AB261A00BECB6C /* AssetClassificationView.swift */,
+				2440B80422B5B02800A63BA6 /* AssetClassificationViewModel.swift */,
+			);
+			path = AssetClassification;
+			sourceTree = "<group>";
+		};
+		24BEBB1F22B301F30088A397 /* Balance Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				243193E222B3060C009941B4 /* BalanceSheet.swift */,
+			);
+			path = "Balance Sheet";
+			sourceTree = "<group>";
+		};
+		24E814CF22AEE3B600115D29 /* Classification */ = {
+			isa = PBXGroup;
+			children = (
+				24E814CD22AEE39C00115D29 /* AssetClassificationHierarchyObject.swift */,
+				2440B80322B5AE9B00A63BA6 /* AssetClassification */,
+				2440B80022B5ADB000A63BA6 /* Classifications */,
 			);
 			path = Classification;
 			sourceTree = "<group>";
@@ -209,19 +253,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2440B80222B5ADC400A63BA6 /* ClassificationsViewModel.swift in Sources */,
 				243D929322AB264700BECB6C /* SecurityView.swift in Sources */,
 				243D928622AAFD1400BECB6C /* Account.swift in Sources */,
+				243193E322B3060C009941B4 /* BalanceSheet.swift in Sources */,
+				243193E522B3068A009941B4 /* ClassificationHierarchyView.swift in Sources */,
 				243D928A22AB081400BECB6C /* Manager.swift in Sources */,
 				243C76F522B1800B00087D90 /* TestData.swift in Sources */,
-				24E814CE22AEE39C00115D29 /* ClassificationSection.swift in Sources */,
+				24E814CE22AEE39C00115D29 /* AssetClassificationHierarchyObject.swift in Sources */,
 				243D928C22AB0D0800BECB6C /* Transaction.swift in Sources */,
 				243D926F22AAEB4100BECB6C /* AppDelegate.swift in Sources */,
 				2451424422ABF9E300BAFD5C /* AssetStore.swift in Sources */,
 				243D928822AB07F800BECB6C /* Depot.swift in Sources */,
 				24E814CC22AED3DA00115D29 /* ClassificationsView.swift in Sources */,
 				243D928422AAFCED00BECB6C /* Security.swift in Sources */,
-				243D929122AB261A00BECB6C /* ClassifiedObjectsView.swift in Sources */,
+				243D929122AB261A00BECB6C /* AssetClassificationView.swift in Sources */,
 				243D927122AAEB4100BECB6C /* SceneDelegate.swift in Sources */,
+				2440B80522B5B02800A63BA6 /* AssetClassificationViewModel.swift in Sources */,
 				243D928F22AB25DF00BECB6C /* DepotView.swift in Sources */,
 				243D927322AAEB4100BECB6C /* ContentView.swift in Sources */,
 				243C76F322B1739600087D90 /* Classification.swift in Sources */,

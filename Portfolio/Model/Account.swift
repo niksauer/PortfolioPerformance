@@ -21,7 +21,7 @@ struct Account: Classifiable {
     var currency: Currency
 }
 
-extension Account: HierarchyObject {
+extension Account: AssetClassificationHierarchyObjectModel {
     var title: String { return name }
     var subtitle: String? { return nil }
     var icon: Image { return Image(systemName: "a.square") }
