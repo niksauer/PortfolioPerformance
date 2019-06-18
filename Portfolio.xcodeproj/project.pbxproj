@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		243193E322B3060C009941B4 /* BalanceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243193E222B3060C009941B4 /* BalanceSheet.swift */; };
+		243193E322B3060C009941B4 /* BalanceSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243193E222B3060C009941B4 /* BalanceSheetView.swift */; };
 		243193E522B3068A009941B4 /* ClassificationHierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243193E422B3068A009941B4 /* ClassificationHierarchyView.swift */; };
 		243C76F322B1739600087D90 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C76F222B1739600087D90 /* Classification.swift */; };
 		243C76F522B1800B00087D90 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C76F422B1800B00087D90 /* TestData.swift */; };
@@ -28,12 +28,13 @@
 		2440B80222B5ADC400A63BA6 /* ClassificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440B80122B5ADC400A63BA6 /* ClassificationsViewModel.swift */; };
 		2440B80522B5B02800A63BA6 /* AssetClassificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440B80422B5B02800A63BA6 /* AssetClassificationViewModel.swift */; };
 		2451424422ABF9E300BAFD5C /* AssetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2451424322ABF9E300BAFD5C /* AssetStore.swift */; };
+		247DA0D722B979E700DEA4C6 /* BalanceSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247DA0D622B979E700DEA4C6 /* BalanceSheetViewModel.swift */; };
 		24E814CC22AED3DA00115D29 /* ClassificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E814CB22AED3DA00115D29 /* ClassificationsView.swift */; };
 		24E814CE22AEE39C00115D29 /* AssetClassificationHierarchyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E814CD22AEE39C00115D29 /* AssetClassificationHierarchyObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		243193E222B3060C009941B4 /* BalanceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSheet.swift; sourceTree = "<group>"; };
+		243193E222B3060C009941B4 /* BalanceSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSheetView.swift; sourceTree = "<group>"; };
 		243193E422B3068A009941B4 /* ClassificationHierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationHierarchyView.swift; sourceTree = "<group>"; };
 		243C76F222B1739600087D90 /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
 		243C76F422B1800B00087D90 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
@@ -56,6 +57,7 @@
 		2440B80122B5ADC400A63BA6 /* ClassificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationsViewModel.swift; sourceTree = "<group>"; };
 		2440B80422B5B02800A63BA6 /* AssetClassificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetClassificationViewModel.swift; sourceTree = "<group>"; };
 		2451424322ABF9E300BAFD5C /* AssetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetStore.swift; sourceTree = "<group>"; };
+		247DA0D622B979E700DEA4C6 /* BalanceSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSheetViewModel.swift; sourceTree = "<group>"; };
 		24E814CB22AED3DA00115D29 /* ClassificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationsView.swift; sourceTree = "<group>"; };
 		24E814CD22AEE39C00115D29 /* AssetClassificationHierarchyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetClassificationHierarchyObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,7 +169,8 @@
 		24BEBB1F22B301F30088A397 /* Balance Sheet */ = {
 			isa = PBXGroup;
 			children = (
-				243193E222B3060C009941B4 /* BalanceSheet.swift */,
+				243193E222B3060C009941B4 /* BalanceSheetView.swift */,
+				247DA0D622B979E700DEA4C6 /* BalanceSheetViewModel.swift */,
 			);
 			path = "Balance Sheet";
 			sourceTree = "<group>";
@@ -256,7 +259,8 @@
 				2440B80222B5ADC400A63BA6 /* ClassificationsViewModel.swift in Sources */,
 				243D929322AB264700BECB6C /* SecurityView.swift in Sources */,
 				243D928622AAFD1400BECB6C /* Account.swift in Sources */,
-				243193E322B3060C009941B4 /* BalanceSheet.swift in Sources */,
+				247DA0D722B979E700DEA4C6 /* BalanceSheetViewModel.swift in Sources */,
+				243193E322B3060C009941B4 /* BalanceSheetView.swift in Sources */,
 				243193E522B3068A009941B4 /* ClassificationHierarchyView.swift in Sources */,
 				243D928A22AB081400BECB6C /* Manager.swift in Sources */,
 				243C76F522B1800B00087D90 /* TestData.swift in Sources */,

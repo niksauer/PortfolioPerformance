@@ -19,27 +19,38 @@ class ClassificationsViewModel: ClassificationHierarchyViewModel {
     
     // MARK: - Public Properties    
     let didChange = PassthroughSubject<Void, Never>()
+    
+    var classificationType: AssetClassificationType {
+        didSet {
+            didChange.send(())
+        }
+    }
+    
     var classificationTypes: Set<AssetClassificationType> { return assetStore.classificationTypes }
     
     // MARK: - Private Properties
     private var assetStore: AssetStore = .shared
     
+    private let hierarchyOptions = AssetClassificationHierarchyOptions(includeEntries: false, includeUnclassified: false, includeEmptyClassifications: true, disableClassificationMovement: false, disableAssetMovement: true, disableClassificationDeletion: false, disableAssetDeletion: true)
+    
+    init(classificationType: ClassificationType) {
+        self.classificationType = classificationType
+    }
+    
     // MARK: - Public Methods
     func getFlatClassificationHierarchy(type: AssetClassificationType) -> [AssetClassificationHierarchyObject] {
-        let options = AssetClassificationHierarchyOptions(type: type, includeEntries: false, disableClassificationMovement: false, disableAssetMovement: true, disableClassificationDeletion: false, disableAssetDeletion: true)
-        
-        return assetStore.getFlatClassificationHierarchy(options: options)
+        return assetStore.getFlatClassificationHierarchy(type: type, options: hierarchyOptions)
     }
     
     func getFlatHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AssetClassificationHierarchyObjectView {
         return AssetClassificationHierarchyObjectView(object: object)
     }
     
-    func moveHierarchyObject(from: IndexSet, to: Int, classificationType: AssetClassificationType) {
+    func moveHierarchyObject(from: IndexSet, to: Int) {
         // TODO: implement movement of classification
     }
     
-    func deleteHierarchyObject(at: IndexSet, classificationType: AssetClassificationType) {
+    func deleteHierarchyObject(at: IndexSet) {
         // TODO: implement deletion of classification
     }
     

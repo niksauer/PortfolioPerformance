@@ -22,32 +22,38 @@ protocol ClassificationHierarchyViewModel: BindableObject {
     associatedtype FlatHierarchyObject: FlatHierarchyObjectModel
     associatedtype FlatHierarchyObjectView: View
     
+    var classificationType: ClassificationType { get }
+    
     func getFlatClassificationHierarchy(type: ClassificationType) -> [FlatHierarchyObject]
     func getFlatHierarchyObjectView(_ object: FlatHierarchyObject) -> FlatHierarchyObjectView
-    func moveHierarchyObject(from: IndexSet, to: Int, classificationType: ClassificationType)
-    func deleteHierarchyObject(at: IndexSet, classificationType: ClassificationType)
+    func moveHierarchyObject(from: IndexSet, to: Int)
+    func deleteHierarchyObject(at: IndexSet)
+}
+
+extension ClassificationHierarchyViewModel {
+    func moveHierarchyObject(from: IndexSet, to: Int) { }
+    func deleteHierarchyObject(at: IndexSet) { }
 }
 
 struct ClassificationHierarchyView<T: ClassificationHierarchyViewModel>: View {
 
     // MARK: - Public Properties
     @ObjectBinding var viewModel: T
-    @Binding var classificationType: T.ClassificationType
 
     // MARK: - View
     var body: some View {
         List {
-            ForEach(self.viewModel.getFlatClassificationHierarchy(type: self.classificationType).identified(by: \.id)) { flatHierarchyObject in
+            ForEach(self.viewModel.getFlatClassificationHierarchy(type: self.viewModel.classificationType).identified(by: \.id)) { flatHierarchyObject in
                 self.viewModel.getFlatHierarchyObjectView(flatHierarchyObject)
                     .padding(.leading, Length(integerLiteral: self.getIndentPadding(object: flatHierarchyObject)))
                     .moveDisabled(flatHierarchyObject.disableMovement)
                     .deleteDisabled(flatHierarchyObject.disableDeletion)
             }
             .onMove(perform: { source, destination in
-                self.viewModel.moveHierarchyObject(from: source, to: destination, classificationType: self.classificationType)
+                self.viewModel.moveHierarchyObject(from: source, to: destination)
             })
             .onDelete(perform: { source in
-                self.viewModel.deleteHierarchyObject(at: source, classificationType: self.classificationType)
+                self.viewModel.deleteHierarchyObject(at: source)
             })
         }
 //        .listStyle(.grouped)

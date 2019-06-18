@@ -10,10 +10,12 @@ import SwiftUI
 
 struct ContentView: View {
     let assetClassificationViewModel = AssetClassificationViewModel()
+    let balanceSheetViewModel = BalanceSheetViewModel()
     
     var body: some View {        
         return NavigationView {
-            AssetClassificationView(viewModel: assetClassificationViewModel)
+//            AssetClassificationView(viewModel: assetClassificationViewModel)
+            BalanceSheetView(viewModel: balanceSheetViewModel)
         }
     }
 }

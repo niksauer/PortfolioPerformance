@@ -12,7 +12,6 @@ struct ClassificationsView: View {
     
     // MARK: - Public Properties
     @ObjectBinding var viewModel: ClassificationsViewModel
-    @State var classificationType: AssetClassificationType
     
     // MARK: - Private Properties
     @State private var showNewEntryDialog = false
@@ -20,8 +19,8 @@ struct ClassificationsView: View {
     // MARK: - View
     var body: some View {
         NavigationView {
-            ClassificationHierarchyView(viewModel: self.viewModel, classificationType: self.$classificationType)
-                .navigationBarTitle(Text(self.classificationType.rawValue), displayMode: .inline)
+            ClassificationHierarchyView(viewModel: self.viewModel)
+                .navigationBarTitle(Text(self.viewModel.classificationType.rawValue), displayMode: .inline)
                 .navigationBarItems(
                     leading:
                         HStack {
@@ -49,11 +48,10 @@ struct ClassificationsView: View {
 
 #if DEBUG
 struct ClassificationsView_Previews : PreviewProvider {
-    static let viewModel = ClassificationsViewModel()
-    static let classificationType: AssetClassificationType = .AssetAllocation
+    static let viewModel = ClassificationsViewModel(classificationType: .AssetAllocation)
 
     static var previews: some View {
-        return ClassificationsView(viewModel: viewModel, classificationType: self.classificationType)
+        return ClassificationsView(viewModel: viewModel)
     }
 }
 #endif

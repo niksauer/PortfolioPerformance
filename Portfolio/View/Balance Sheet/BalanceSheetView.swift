@@ -1,18 +1,18 @@
 //
-//  ClassifiedObjectsView.swift
+//  BalanceSheetView.swift
 //  Portfolio
 //
-//  Created by Nik Sauer on 08.06.19.
+//  Created by Nik Sauer on 14.06.19.
 //  Copyright © 2019 SauerStudios. All rights reserved.
 //
 
 import SwiftUI
 
-struct AssetClassificationView: View {
-
-    // MARK: - Public Properties
-    @ObjectBinding var viewModel: AssetClassificationViewModel
+struct BalanceSheetView: View {
     
+    // MARK: - Public Properties
+    @ObjectBinding var viewModel: BalanceSheetViewModel
+
     // MARK: - Private Properties
     @State private var showClassificationTypeSelection = false
     
@@ -29,13 +29,9 @@ struct AssetClassificationView: View {
         return ActionSheet(title: Text("Klassifizierungstyp"), buttons: actions)
     }
     
-    // MARK: - View
     var body: some View {
-        let classificationsViewModel = ClassificationsViewModel(classificationType: self.viewModel.classificationType)
-        let classificationsView = ClassificationsView(viewModel: classificationsViewModel)
-    
-        return ClassificationHierarchyView(viewModel: self.viewModel)
-            .navigationBarTitle(Text(self.viewModel.classificationType.rawValue), displayMode: .inline)
+        ClassificationHierarchyView(viewModel: self.viewModel)
+            .navigationBarTitle(Text("Vermögensaufstellung"), displayMode: .inline)
             .navigationBarItems(
                 leading:
                     HStack {
@@ -46,22 +42,15 @@ struct AssetClassificationView: View {
                         }
                         .presentation(self.showClassificationTypeSelection ? classificationTypeActionSheet : nil)
 
-                        PresentationButton(Image(systemName: "folder.badge.plus"), destination: classificationsView)
-                            .padding(.leading)
-                    },
-                trailing:
-                    EditButton()
+                    }
             )
     }
-
 }
 
-#if DEBUG
-struct AssetClassificationView_Previews: PreviewProvider {
-    static let viewModel = AssetClassificationViewModel()
-
-    static var previews: some View {
-        return AssetClassificationView(viewModel: viewModel)
-    }
-}
-#endif
+//#if DEBUG
+//struct BalanceSheetView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BalanceSheetView()
+//    }
+//}
+//#endif

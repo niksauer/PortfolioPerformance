@@ -1,8 +1,8 @@
 //
-//  ClassifiedObjectsViewModel.swift
+//  BalanceSheetViewModel.swift
 //  Portfolio
 //
-//  Created by Nik Sauer on 16.06.19.
+//  Created by Nik Sauer on 18.06.19.
 //  Copyright © 2019 SauerStudios. All rights reserved.
 //
 
@@ -10,8 +10,8 @@ import Foundation
 import SwiftUI
 import Combine
 
-class AssetClassificationViewModel: ClassificationHierarchyViewModel {
-
+class BalanceSheetViewModel: ClassificationHierarchyViewModel {
+    
     // MARK: - Types
     typealias ClassificationType = AssetClassificationType
     typealias FlatHierarchyObjectModel = AssetClassificationHierarchyObject
@@ -31,7 +31,7 @@ class AssetClassificationViewModel: ClassificationHierarchyViewModel {
     // MARK: - Private Properties
     @ObjectBinding private var assetStore: AssetStore = .shared
     
-    private let hierarchyOptions = AssetClassificationHierarchyOptions(includeEntries: true, includeUnclassified: true, includeEmptyClassifications: true, disableClassificationMovement: true, disableAssetMovement: false, disableClassificationDeletion: true, disableAssetDeletion: true)
+    private let options = AssetClassificationHierarchyOptions(includeEntries: true, includeUnclassified: false, includeEmptyClassifications: false, disableClassificationMovement: true, disableAssetMovement: true, disableClassificationDeletion: true, disableAssetDeletion: true)
     
     // MARK: - Private Properties
     init() {
@@ -42,20 +42,11 @@ class AssetClassificationViewModel: ClassificationHierarchyViewModel {
     
     // MARK: - Public Methods
     func getFlatClassificationHierarchy(type: AssetClassificationType) -> [AssetClassificationHierarchyObject] {
-        return assetStore.getFlatClassificationHierarchy(type: type, options: hierarchyOptions)
+        return assetStore.getFlatRootClassificationHierarchy(type: type, options: options)
     }
     
     func getFlatHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AssetClassificationHierarchyObjectView {
         return AssetClassificationHierarchyObjectView(object: object)
-    }
-    
-    func moveHierarchyObject(from source: IndexSet, to destination: Int) {
-        // TODO: implement movement of classification
-        assetStore.moveClassifiedObject(from: source, to: destination, classificationType: classificationType, hierarchyOptions: hierarchyOptions)
-    }
-    
-    func deleteHierarchyObject(at: IndexSet) {
-        // TODO: implement deletion of classification
     }
     
 }
