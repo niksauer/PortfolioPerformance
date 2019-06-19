@@ -11,11 +11,11 @@ import SwiftUI
 import Combine
 
 class BalanceSheetViewModel: ClassificationHierarchyViewModel {
-    
+
     // MARK: - Types
     typealias ClassificationType = AssetClassificationType
     typealias FlatHierarchyObjectModel = AssetClassificationHierarchyObject
-    typealias FlatHierarchyObjectView = AssetClassificationHierarchyObjectView
+    typealias FlatHierarchyObjectView = AnyView
     
     // MARK: - Public Properties
     let didChange = PassthroughSubject<Void, Never>()
@@ -45,8 +45,26 @@ class BalanceSheetViewModel: ClassificationHierarchyViewModel {
         return assetStore.getFlatRootClassificationHierarchy(type: type, options: options)
     }
     
-    func getFlatHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AssetClassificationHierarchyObjectView {
-        return AssetClassificationHierarchyObjectView(object: object)
+    func getFlatHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AnyView {
+        switch object.wrappedObject {
+        case let classification as Classification:
+            return AnyView(ClassificationRow(classification: classification))
+        case let security as Security:
+            return AnyView(SecurityRow(security: security))
+        case let account as Account:
+            return AnyView(AccountRow(account: account))
+        default:
+            fatalError()
+        }
     }
     
+}
+
+
+struct ClassificationRow: View {
+    let classification: Classification
+    
+    var body: some View {
+        Text("hello")
+    }
 }

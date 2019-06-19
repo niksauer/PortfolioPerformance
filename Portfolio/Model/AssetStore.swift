@@ -131,7 +131,7 @@ class AssetStore: BindableObject {
         
         if destination == 0 {
             // make unclassified
-            removeClassification(objectID: sourceObject.id, objectType: sourceObject.wrappedType, classificationType: classificationType)
+            removeClassification(object: sourceObject, classificationType: classificationType)
         } else {
             // find nearest parent classification
         
@@ -155,7 +155,7 @@ class AssetStore: BindableObject {
                 return
             }
             
-            changeClassification(objectID: sourceObject.id, objectType: sourceObject.wrappedType, classificationType: classificationType, newClassificationID: newClassificationID)
+            changeClassification(object: sourceObject, classificationType: classificationType, newClassificationID: newClassificationID)
         }
     }
     
@@ -211,28 +211,25 @@ class AssetStore: BindableObject {
     }
     
     // MARK: Concrete Classifiable
-    private func removeClassification(objectID: UUID, objectType: String, classificationType: AssetClassificationType) {
-        print(self.securityClassifications.count)
-        switch objectType {
-        case "Account":
-            self.accountClassifications = removeClassification(objectID: objectID, classificationType: classificationType.rawValue, assignments: accountClassifications)
-        case "Security":
-            self.securityClassifications = removeClassification(objectID: objectID, classificationType: classificationType.rawValue, assignments: securityClassifications)
+    private func removeClassification(object: AssetClassificationHierarchyObject, classificationType: AssetClassificationType) {
+        switch object.wrappedObject {
+        case let account as Account:
+            self.accountClassifications = removeClassification(objectID: account.id, classificationType: classificationType.rawValue, assignments: accountClassifications)
+        case let security as Security:
+            self.securityClassifications = removeClassification(objectID: security.id, classificationType: classificationType.rawValue, assignments: securityClassifications)
         default:
-            break
+            fatalError()
         }
-        
-        print(self.securityClassifications.count)
     }
     
-    private func changeClassification(objectID: UUID, objectType: String, classificationType: AssetClassificationType, newClassificationID: UUID) {
-        switch objectType {
-        case "Account":
-            self.accountClassifications = changeClassification(objectID: objectID, classificationType: classificationType.rawValue, newClassificationID: newClassificationID, assignments: accountClassifications)
-        case "Security":
-            self.securityClassifications = changeClassification(objectID: objectID, classificationType: classificationType.rawValue, newClassificationID: newClassificationID, assignments: securityClassifications)
+    private func changeClassification(object: AssetClassificationHierarchyObject, classificationType: AssetClassificationType, newClassificationID: UUID) {
+        switch object.wrappedObject {
+        case _ as Account:
+            self.accountClassifications = changeClassification(objectID: object.id, classificationType: classificationType.rawValue, newClassificationID: newClassificationID, assignments: accountClassifications)
+        case _ as Security:
+            self.securityClassifications = changeClassification(objectID: object.id, classificationType: classificationType.rawValue, newClassificationID: newClassificationID, assignments: securityClassifications)
         default:
-            break
+            fatalError()
         }
     }
 

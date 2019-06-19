@@ -39,15 +39,16 @@ struct AssetClassificationView: View {
             .navigationBarItems(
                 leading:
                     HStack {
+                        
                         Button(action: {
                             self.showClassificationTypeSelection = true
                         }) {
                             Image(systemName: "list.bullet")
                         }
                         .presentation(self.showClassificationTypeSelection ? classificationTypeActionSheet : nil)
-
-                        PresentationButton(Image(systemName: "folder.badge.plus"), destination: classificationsView)
-                            .padding(.leading)
+//
+//                        PresentationButton(Image(systemName: "folder.badge.plus"), destination: classificationsView)
+//                            .padding(.leading)
                     },
                 trailing:
                     EditButton()
