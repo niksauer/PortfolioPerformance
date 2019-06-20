@@ -20,9 +20,8 @@ struct SecurityDetailView: View {
     
 }
 
-
 //#if DEBUG
-//struct SecurityDetailView_Previews : PreviewProvider {
+//struct SecurityDetailView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        SecurityDetailView()
 //    }

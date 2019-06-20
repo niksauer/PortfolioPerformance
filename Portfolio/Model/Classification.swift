@@ -92,3 +92,7 @@ extension Classification: AssetClassificationHierarchyObjectModel {
     var icon: Image { return Image(systemName: "folder.fill") }
     var isHierarchyEntry: Bool { return false }
 }
+
+extension Classification: ClassificationObjectModel {
+    
+}

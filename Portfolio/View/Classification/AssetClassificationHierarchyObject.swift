@@ -15,7 +15,7 @@ protocol AssetClassificationHierarchyObjectModel: Identifiable where ID == UUID 
     var isHierarchyEntry: Bool { get }
 }
 
-struct AssetClassificationHierarchyObject: FlatHierarchyObjectModel {
+struct AssetClassificationHierarchyObject: HierarchyObjectModel {
 
     // MARK: - Public Properties
 //    let title: String

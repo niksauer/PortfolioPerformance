@@ -51,13 +51,11 @@ class AssetStore: BindableObject {
     }
     
     // MARK: - Public Methods
-    func getRootClassificationObjects(type: AssetClassificationType, options: AssetClassificationHierarchyOptions) -> [AssetClassificationHierarchyObject] {
-        let rootClassifications = getRootClassifications(type: type, includeUnclassified: options.includeUnclassified).map {
-            AssetClassificationHierarchyObject(object: $0, hierarchyLevel: 0, hasParent: false, disableMovement: options.disableClassificationMovement, disableDeletion: options.disableClassificationDeletion)
-        }
+    func getRootClassifications(type: AssetClassificationType, options: AssetClassificationHierarchyOptions) -> [Classification] {
+        let rootClassifications = getRootClassifications(type: type, includeUnclassified: options.includeUnclassified)
         
         if !options.includeEmptyClassifications {
-            return rootClassifications.filter { getFlatClassificationHierarchy(type: type, root: $0, options: options).count > 0 }
+            return rootClassifications.filter { getFlatClassificationHierarchy(type: type, classification: $0, options: options).count > 0 }
         }
         
         return rootClassifications
@@ -92,7 +90,7 @@ class AssetStore: BindableObject {
         return getRootClassifications(type: type, includeUnclassified: options.includeUnclassified).flatMap { getFlatHierarchy(of: $0, hierarchyLevel: 0, hasParent: true) }
     }
     
-    func getFlatClassificationHierarchy(type: AssetClassificationType, root: AssetClassificationHierarchyObject, options: AssetClassificationHierarchyOptions) -> [AssetClassificationHierarchyObject] {
+    func getFlatClassificationHierarchy(type: AssetClassificationType, classification: Classification, options: AssetClassificationHierarchyOptions) -> [AssetClassificationHierarchyObject] {
         func getAllSubclassifications(of classification: Classification) -> [Classification] {
             var subclassifications = [Classification]()
             
@@ -132,7 +130,7 @@ class AssetStore: BindableObject {
             return hierarchyObjects
         }
     
-        return getClassificationHierarchy(of: root.wrappedObject as! Classification, options: options)
+        return getClassificationHierarchy(of: classification, options: options)
 //        return getRootClassifications(type: type, includeUnclassified: options.includeUnclassified).flatMap { getClassificationHierarchy(of: $0, options: options) }
     }
     

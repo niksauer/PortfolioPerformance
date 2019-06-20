@@ -1,5 +1,5 @@
 //
-//  SecuritiesView.swift
+//  SecurityListView.swift
 //  Portfolio
 //
 //  Created by Nik Sauer on 19.06.19.
@@ -8,19 +8,17 @@
 
 import SwiftUI
 
-struct SecuritiesView: View {
+struct SecurityListView: View {
     
     // MARK: - Public Properties
-    @ObjectBinding var viewModel: SecuritiesViewModel
+    @ObjectBinding var viewModel: SecurityListViewModel
     
     // MARK: - Private Properties
     
     // MARK: - View
     var body: some View {
         List(self.viewModel.securities) { security in
-            NavigationButton(destination: SecurityDetailView(security: security)) {
-                SecurityView(security: security)
-            }
+            SecurityRowView(security: security)
         }
         .navigationBarTitle(Text("Wertpapiere"))
         .navigationBarItems(trailing: Button(action: createSecurity) { Image(systemName: "plus.circle") })
@@ -34,11 +32,11 @@ struct SecuritiesView: View {
 }
 
 #if DEBUG
-struct SecurityView_Previews: PreviewProvider {
-    static let viewModel = SecuritiesViewModel()
+struct SecurityListView_Previews: PreviewProvider {
+    static let viewModel = SecurityListViewModel()
     
     static var previews: some View {
-        SecuritiesView(viewModel: viewModel)
+        SecurityListView(viewModel: viewModel)
     }
 }
 #endif

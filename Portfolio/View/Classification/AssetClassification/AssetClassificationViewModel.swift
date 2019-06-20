@@ -1,5 +1,5 @@
 //
-//  ClassifiedObjectsViewModel.swift
+//  AssetClassificationViewModel.swift
 //  Portfolio
 //
 //  Created by Nik Sauer on 16.06.19.
@@ -10,12 +10,12 @@ import Foundation
 import SwiftUI
 import Combine
 
-class AssetClassificationViewModel: ClassificationHierarchyViewModel {
-
+class AssetClassificationViewModel: FlatClassificationHierarchyViewModel {
+    
     // MARK: - Types
     typealias ClassificationType = AssetClassificationType
-    typealias FlatHierarchyObjectModel = AssetClassificationHierarchyObject
-    typealias FlatHierarchyObjectView = AssetClassificationHierarchyObjectView
+    typealias HierarchyObject = AssetClassificationHierarchyObject
+    typealias HierarchyObjectView = AssetClassificationHierarchyObjectView
     
     // MARK: - Public Properties
     let didChange = PassthroughSubject<Void, Never>()
@@ -45,7 +45,7 @@ class AssetClassificationViewModel: ClassificationHierarchyViewModel {
         return assetStore.getFlatClassificationHierarchy(type: type, options: hierarchyOptions)
     }
     
-    func getFlatHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AssetClassificationHierarchyObjectView {
+    func getHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AssetClassificationHierarchyObjectView {
         switch object.wrappedObject {
         case let classification as Classification:
             return AssetClassificationHierarchyObjectView(title: classification.name, subtitle: nil, icon: classification.icon)

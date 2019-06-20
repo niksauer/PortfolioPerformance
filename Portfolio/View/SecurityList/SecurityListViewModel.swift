@@ -1,5 +1,5 @@
 //
-//  SecuritiesViewModel.swift
+//  SecurityListViewModel.swift
 //  Portfolio
 //
 //  Created by Nik Sauer on 19.06.19.
@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class SecuritiesViewModel: BindableObject {
+class SecurityListViewModel: BindableObject {
     
     // MARK: - Public Properties
     let didChange = PassthroughSubject<Void, Never>()

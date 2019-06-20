@@ -31,7 +31,7 @@ struct BalanceSheetView: View {
     
     // MARK: - View
     var body: some View {
-        ClassificationHierarchyView(viewModel: self.viewModel, listStyle: .grouped, style: "Grouped")
+        GroupedClassificationHierarchyView(viewModel: self.viewModel)
             .navigationBarTitle(Text("Vermögensaufstellung"), displayMode: .inline)
             .navigationBarItems(
                 leading:

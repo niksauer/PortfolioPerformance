@@ -1,5 +1,5 @@
 //
-//  ClassifiedObjectsView.swift
+//  AssetClassificationView.swift
 //  Portfolio
 //
 //  Created by Nik Sauer on 08.06.19.
@@ -31,11 +31,11 @@ struct AssetClassificationView: View {
     
     // MARK: - View
     var body: some View {
-        let classificationsViewModel = ClassificationsViewModel(classificationType: self.viewModel.classificationType)
-        let classificationsView = ClassificationsView(viewModel: classificationsViewModel)
+        let classificationListViewModel = ClassificationListViewModel(classificationType: self.viewModel.classificationType)
+        let classificationListView = ClassificationListView(viewModel: classificationListViewModel)
     
-        return ClassificationHierarchyView(viewModel: self.viewModel, listStyle: .plain, style: "Default")
-            .navigationBarTitle(Text(self.viewModel.classificationType.rawValue), displayMode: .inline)
+        return FlatClassificationHierarchyView(viewModel: self.viewModel)
+            .navigationBarTitle(Text("Klassifizierung"), displayMode: .inline)
             .navigationBarItems(
                 leading:
                     HStack {
@@ -47,7 +47,7 @@ struct AssetClassificationView: View {
                         }
                         .presentation(self.showClassificationTypeSelection ? classificationTypeActionSheet : nil)
 
-                        PresentationButton(destination: classificationsView, label: { Image(systemName: "folder.badge.plus") })
+                        PresentationButton(destination: classificationListView, label: { Image(systemName: "folder.badge.plus") })
                             .padding(.leading)
                     },
                 trailing:

@@ -14,8 +14,8 @@ struct ContentView: View {
     
     var body: some View {        
         NavigationView {
-//            AssetClassificationView(viewModel: assetClassificationViewModel)
-            BalanceSheetView(viewModel: balanceSheetViewModel)
+            AssetClassificationView(viewModel: assetClassificationViewModel)
+//            BalanceSheetView(viewModel: balanceSheetViewModel)
         }
     }
 }
