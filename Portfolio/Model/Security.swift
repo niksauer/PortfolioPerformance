@@ -21,7 +21,7 @@ struct Security: Classifiable {
 }
 
 extension Security: AssetClassificationHierarchyObjectModel {
-//    var title: String { return name }
+    var title: String { return name }
 //    var subtitle: String? { return supplier }
     var icon: Image { return Image(systemName: "s.square") }
     var isHierarchyEntry: Bool { return true }

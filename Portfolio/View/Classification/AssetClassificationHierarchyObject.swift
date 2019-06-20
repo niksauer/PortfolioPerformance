@@ -9,7 +9,7 @@
 import SwiftUI
 
 protocol AssetClassificationHierarchyObjectModel: Identifiable where ID == UUID {
-//    var title: String { get }
+    var title: String { get }
 //    var subtitle: String? { get }
 //    var icon: Image { get }
     var isHierarchyEntry: Bool { get }
@@ -22,6 +22,7 @@ struct AssetClassificationHierarchyObject: FlatHierarchyObjectModel {
 //    let subtitle: String?
 //    let icon: Image
 //    let wrappedType: String
+    let title: String
     let wrappedObject: Any
     
     // MARK: FlatHierarchyObjectModel
@@ -38,6 +39,7 @@ struct AssetClassificationHierarchyObject: FlatHierarchyObjectModel {
 //        self.subtitle = object.subtitle
 //        self.icon = object.icon
 //        self.wrappedType = "\(type(of: object))"
+        self.title = object.title
         self.wrappedObject = object
         
         self.id = object.id

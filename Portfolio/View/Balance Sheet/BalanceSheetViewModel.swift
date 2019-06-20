@@ -33,7 +33,7 @@ class BalanceSheetViewModel: ClassificationHierarchyViewModel {
     
     private let options = AssetClassificationHierarchyOptions(includeEntries: true, includeUnclassified: false, includeEmptyClassifications: false, disableClassificationMovement: true, disableAssetMovement: true, disableClassificationDeletion: true, disableAssetDeletion: true)
     
-    // MARK: - Private Properties
+    // MARK: - Initilization
     init() {
         _ = assetStore.didChange.sink { assetStore in
             self.didChange.send(())
@@ -41,30 +41,29 @@ class BalanceSheetViewModel: ClassificationHierarchyViewModel {
     }
     
     // MARK: - Public Methods
+    func getRootClassificationObjects(type: AssetClassificationType) -> [AssetClassificationHierarchyObject] {
+        return assetStore.getRootClassificationObjects(type: type, options: options)
+    }
+    
     func getFlatClassificationHierarchy(type: AssetClassificationType) -> [AssetClassificationHierarchyObject] {
-        return assetStore.getFlatRootClassificationHierarchy(type: type, options: options)
+        return []
+    }
+    
+    func getFlatClassificationHierarchy(type: AssetClassificationType, root: AssetClassificationHierarchyObject) -> [AssetClassificationHierarchyObject] {
+        return assetStore.getFlatClassificationHierarchy(type: type, root: root, options: options)
     }
     
     func getFlatHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AnyView {
         switch object.wrappedObject {
         case let classification as Classification:
-            return AnyView(ClassificationRow(classification: classification))
+            return AnyView(ClassificationView(classification: classification))
         case let security as Security:
-            return AnyView(SecurityRow(security: security))
+            return AnyView(SecurityView(security: security))
         case let account as Account:
-            return AnyView(AccountRow(account: account))
+            return AnyView(AccountView(account: account))
         default:
             fatalError()
         }
     }
     
-}
-
-
-struct ClassificationRow: View {
-    let classification: Classification
-    
-    var body: some View {
-        Text("hello")
-    }
 }

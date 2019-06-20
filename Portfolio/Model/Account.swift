@@ -9,9 +9,9 @@
 import Foundation
 import SwiftUI
 
-enum Currency {
-    case EUR
-    case USD
+enum Currency: String {
+    case EUR = "€"
+    case USD = "$"
 }
 
 struct Account: Classifiable {
@@ -22,7 +22,7 @@ struct Account: Classifiable {
 }
 
 extension Account: AssetClassificationHierarchyObjectModel {
-//    var title: String { return name }
+    var title: String { return name }
 //    var subtitle: String? { return nil }
     var icon: Image { return Image(systemName: "a.square") }
     var isHierarchyEntry: Bool { return true }

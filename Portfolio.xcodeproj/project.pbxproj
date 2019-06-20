@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2425771322BAB85F00CCA39B /* AccountRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2425771222BAB85F00CCA39B /* AccountRow.swift */; };
+		2425771322BAB85F00CCA39B /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2425771222BAB85F00CCA39B /* AccountView.swift */; };
 		2425771622BABF5000CCA39B /* AssetClassificationHierarchyObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2425771522BABF5000CCA39B /* AssetClassificationHierarchyObjectView.swift */; };
+		2425771822BADC8700CCA39B /* ClassificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2425771722BADC8700CCA39B /* ClassificationRow.swift */; };
+		2425771A22BADD4500CCA39B /* SecuritiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2425771922BADD4500CCA39B /* SecuritiesView.swift */; };
+		2425771C22BADE4500CCA39B /* SecuritiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2425771B22BADE4500CCA39B /* SecuritiesViewModel.swift */; };
+		2425771F22BAE72400CCA39B /* SecurityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2425771E22BAE72400CCA39B /* SecurityDetailView.swift */; };
 		243193E322B3060C009941B4 /* BalanceSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243193E222B3060C009941B4 /* BalanceSheetView.swift */; };
 		243193E522B3068A009941B4 /* ClassificationHierarchyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243193E422B3068A009941B4 /* ClassificationHierarchyView.swift */; };
 		243C76F322B1739600087D90 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C76F222B1739600087D90 /* Classification.swift */; };
@@ -36,8 +40,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2425771222BAB85F00CCA39B /* AccountRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRow.swift; sourceTree = "<group>"; };
+		2425771222BAB85F00CCA39B /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		2425771522BABF5000CCA39B /* AssetClassificationHierarchyObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetClassificationHierarchyObjectView.swift; sourceTree = "<group>"; };
+		2425771722BADC8700CCA39B /* ClassificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationRow.swift; sourceTree = "<group>"; };
+		2425771922BADD4500CCA39B /* SecuritiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritiesView.swift; sourceTree = "<group>"; };
+		2425771B22BADE4500CCA39B /* SecuritiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritiesViewModel.swift; sourceTree = "<group>"; };
+		2425771E22BAE72400CCA39B /* SecurityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityDetailView.swift; sourceTree = "<group>"; };
 		243193E222B3060C009941B4 /* BalanceSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSheetView.swift; sourceTree = "<group>"; };
 		243193E422B3068A009941B4 /* ClassificationHierarchyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationHierarchyView.swift; sourceTree = "<group>"; };
 		243C76F222B1739600087D90 /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
@@ -80,8 +88,22 @@
 		2425771422BABE8000CCA39B /* Securites */ = {
 			isa = PBXGroup;
 			children = (
+				2425771922BADD4500CCA39B /* SecuritiesView.swift */,
+				2425771B22BADE4500CCA39B /* SecuritiesViewModel.swift */,
 			);
 			path = Securites;
+			sourceTree = "<group>";
+		};
+		2425771D22BAE18A00CCA39B /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				2425771722BADC8700CCA39B /* ClassificationRow.swift */,
+				243D929222AB264700BECB6C /* SecurityView.swift */,
+				2425771222BAB85F00CCA39B /* AccountView.swift */,
+				243D928E22AB25DF00BECB6C /* DepotView.swift */,
+				2425771E22BAE72400CCA39B /* SecurityDetailView.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		243D926222AAEB4100BECB6C = {
@@ -141,13 +163,11 @@
 		243D928D22AB22CA00BECB6C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				243D927222AAEB4100BECB6C /* ContentView.swift */,
+				2425771D22BAE18A00CCA39B /* Shared */,
 				2440B7FF22B5AC1200A63BA6 /* Generic */,
 				2425771422BABE8000CCA39B /* Securites */,
 				24BEBB1F22B301F30088A397 /* Balance Sheet */,
-				243D927222AAEB4100BECB6C /* ContentView.swift */,
-				243D929222AB264700BECB6C /* SecurityView.swift */,
-				2425771222BAB85F00CCA39B /* AccountRow.swift */,
-				243D928E22AB25DF00BECB6C /* DepotView.swift */,
 				24E814CF22AEE3B600115D29 /* Classification */,
 			);
 			path = View;
@@ -274,6 +294,7 @@
 				243D929322AB264700BECB6C /* SecurityView.swift in Sources */,
 				243D928622AAFD1400BECB6C /* Account.swift in Sources */,
 				247DA0D722B979E700DEA4C6 /* BalanceSheetViewModel.swift in Sources */,
+				2425771F22BAE72400CCA39B /* SecurityDetailView.swift in Sources */,
 				243193E322B3060C009941B4 /* BalanceSheetView.swift in Sources */,
 				243193E522B3068A009941B4 /* ClassificationHierarchyView.swift in Sources */,
 				243D928A22AB081400BECB6C /* Manager.swift in Sources */,
@@ -287,11 +308,14 @@
 				243D928422AAFCED00BECB6C /* Security.swift in Sources */,
 				243D929122AB261A00BECB6C /* AssetClassificationView.swift in Sources */,
 				243D927122AAEB4100BECB6C /* SceneDelegate.swift in Sources */,
+				2425771A22BADD4500CCA39B /* SecuritiesView.swift in Sources */,
 				2425771622BABF5000CCA39B /* AssetClassificationHierarchyObjectView.swift in Sources */,
 				2440B80522B5B02800A63BA6 /* AssetClassificationViewModel.swift in Sources */,
-				2425771322BAB85F00CCA39B /* AccountRow.swift in Sources */,
+				2425771322BAB85F00CCA39B /* AccountView.swift in Sources */,
 				243D928F22AB25DF00BECB6C /* DepotView.swift in Sources */,
+				2425771C22BADE4500CCA39B /* SecuritiesViewModel.swift in Sources */,
 				243D927322AAEB4100BECB6C /* ContentView.swift in Sources */,
+				2425771822BADC8700CCA39B /* ClassificationRow.swift in Sources */,
 				243C76F322B1739600087D90 /* Classification.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

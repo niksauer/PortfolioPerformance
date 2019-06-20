@@ -19,7 +19,7 @@ struct ClassificationsView: View {
     // MARK: - View
     var body: some View {
         NavigationView {
-            ClassificationHierarchyView(viewModel: self.viewModel)
+            ClassificationHierarchyView(viewModel: self.viewModel, listStyle: .plain, style: "Default")
                 .navigationBarTitle(Text(self.viewModel.classificationType.rawValue), displayMode: .inline)
                 .navigationBarItems(
                     leading:

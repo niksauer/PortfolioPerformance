@@ -34,7 +34,7 @@ struct AssetClassificationView: View {
         let classificationsViewModel = ClassificationsViewModel(classificationType: self.viewModel.classificationType)
         let classificationsView = ClassificationsView(viewModel: classificationsViewModel)
     
-        return ClassificationHierarchyView(viewModel: self.viewModel)
+        return ClassificationHierarchyView(viewModel: self.viewModel, listStyle: .plain, style: "Default")
             .navigationBarTitle(Text(self.viewModel.classificationType.rawValue), displayMode: .inline)
             .navigationBarItems(
                 leading:
@@ -46,9 +46,9 @@ struct AssetClassificationView: View {
                             Image(systemName: "list.bullet")
                         }
                         .presentation(self.showClassificationTypeSelection ? classificationTypeActionSheet : nil)
-//
-//                        PresentationButton(Image(systemName: "folder.badge.plus"), destination: classificationsView)
-//                            .padding(.leading)
+
+                        PresentationButton(destination: classificationsView, label: { Image(systemName: "folder.badge.plus") })
+                            .padding(.leading)
                     },
                 trailing:
                     EditButton()
