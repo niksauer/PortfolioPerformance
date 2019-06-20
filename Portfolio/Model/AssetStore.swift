@@ -29,7 +29,7 @@ class AssetStore: BindableObject {
     
     // MARK: - Public Properties
     let didChange = PassthroughSubject<AssetStore, Never>()
-    var classificationTypes: Set<AssetClassificationType> { return Set(classifications.map { $0.type }) }
+    var classificationTypes: [AssetClassificationType] { return Set(classifications.map { $0.type }).sorted { $0.rawValue < $1.rawValue } }
     
     // MARK: - Private Properties
     private(set) var securities: [Security] { didSet { didChange.send(self) } }

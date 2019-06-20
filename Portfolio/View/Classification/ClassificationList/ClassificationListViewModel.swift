@@ -26,7 +26,7 @@ class ClassificationListViewModel: FlatClassificationHierarchyViewModel {
         }
     }
     
-    var classificationTypes: Set<AssetClassificationType> { return assetStore.classificationTypes }
+    var classificationTypes: [AssetClassificationType] { return assetStore.classificationTypes }
     
     // MARK: - Private Properties
     private var assetStore: AssetStore = .shared
