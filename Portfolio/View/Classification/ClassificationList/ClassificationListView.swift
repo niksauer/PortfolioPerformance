@@ -1,5 +1,5 @@
 //
-//  ClassificationsView.swift
+//  ClassificationListView.swift
 //  Portfolio
 //
 //  Created by Nik Sauer on 10.06.19.
@@ -8,10 +8,10 @@
 
 import SwiftUI
 
-struct ClassificationsView: View {
+struct ClassificationListView: View {
     
     // MARK: - Public Properties
-    @ObjectBinding var viewModel: ClassificationsViewModel
+    @ObjectBinding var viewModel: ClassificationListViewModel
     
     // MARK: - Private Properties
     @State private var showNewEntryDialog = false
@@ -19,7 +19,7 @@ struct ClassificationsView: View {
     // MARK: - View
     var body: some View {
         NavigationView {
-            ClassificationHierarchyView(viewModel: self.viewModel)
+            FlatClassificationHierarchyView(viewModel: self.viewModel)
                 .navigationBarTitle(Text(self.viewModel.classificationType.rawValue), displayMode: .inline)
                 .navigationBarItems(
                     leading:
@@ -47,11 +47,11 @@ struct ClassificationsView: View {
 }
 
 #if DEBUG
-struct ClassificationsView_Previews : PreviewProvider {
-    static let viewModel = ClassificationsViewModel(classificationType: .AssetAllocation)
+struct ClassificationListView_Previews : PreviewProvider {
+    static let viewModel = ClassificationListViewModel(classificationType: .AssetAllocation)
 
     static var previews: some View {
-        return ClassificationsView(viewModel: viewModel)
+        return ClassificationListView(viewModel: viewModel)
     }
 }
 #endif

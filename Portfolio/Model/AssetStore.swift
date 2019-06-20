@@ -32,8 +32,8 @@ class AssetStore: BindableObject {
     var classificationTypes: Set<AssetClassificationType> { return Set(classifications.map { $0.type }) }
     
     // MARK: - Private Properties
-    private var securities: [Security] { didSet { didChange.send(self) } }
-    private var accounts: [Account] { didSet { didChange.send(self) } }
+    private(set) var securities: [Security] { didSet { didChange.send(self) } }
+    private(set) var accounts: [Account] { didSet { didChange.send(self) } }
     private var classifications: [Classification] { didSet { didChange.send(self) } }
     private var securityClassifications: [ClassificationAssignment<Security, Classification>] { didSet { didChange.send(self) } }
     private var accountClassifications: [ClassificationAssignment<Account, Classification>] { didSet { didChange.send(self) } }
@@ -51,6 +51,16 @@ class AssetStore: BindableObject {
     }
     
     // MARK: - Public Methods
+    func getRootClassifications(type: AssetClassificationType, options: AssetClassificationHierarchyOptions) -> [Classification] {
+        let rootClassifications = getRootClassifications(type: type, includeUnclassified: options.includeUnclassified)
+        
+        if !options.includeEmptyClassifications {
+            return rootClassifications.filter { getFlatClassificationHierarchy(type: type, classification: $0, options: options).count > 0 }
+        }
+        
+        return rootClassifications
+    }
+    
     func getFlatClassificationHierarchy(type: AssetClassificationType, options: AssetClassificationHierarchyOptions) -> [AssetClassificationHierarchyObject] {
         func getAllAssets(of classification: Classification, hierarchyLevel: Int, hasParent: Bool) -> [AssetClassificationHierarchyObject] {
             var assets = [AssetClassificationHierarchyObject]()
@@ -80,7 +90,7 @@ class AssetStore: BindableObject {
         return getRootClassifications(type: type, includeUnclassified: options.includeUnclassified).flatMap { getFlatHierarchy(of: $0, hierarchyLevel: 0, hasParent: true) }
     }
     
-    func getFlatRootClassificationHierarchy(type: AssetClassificationType, options: AssetClassificationHierarchyOptions) -> [AssetClassificationHierarchyObject] {
+    func getFlatClassificationHierarchy(type: AssetClassificationType, classification: Classification, options: AssetClassificationHierarchyOptions) -> [AssetClassificationHierarchyObject] {
         func getAllSubclassifications(of classification: Classification) -> [Classification] {
             var subclassifications = [Classification]()
             
@@ -113,14 +123,15 @@ class AssetStore: BindableObject {
             assets.append(contentsOf: subclassifications.flatMap { getAllAssets(of: $0, hierarchyLevel: 0, hasParent: true) })
             
             if options.includeEmptyClassifications || (!options.includeEmptyClassifications && assets.count > 0) {
-                hierarchyObjects.append(AssetClassificationHierarchyObject(object: rootClassification, hierarchyLevel: 0, hasParent: false, disableMovement: options.disableClassificationMovement, disableDeletion: options.disableClassificationDeletion))
+//                hierarchyObjects.append(AssetClassificationHierarchyObject(object: rootClassification, hierarchyLevel: 0, hasParent: false, disableMovement: options.disableClassificationMovement, disableDeletion: options.disableClassificationDeletion))
                 hierarchyObjects.append(contentsOf: assets)
             }
             
             return hierarchyObjects
         }
     
-        return getRootClassifications(type: type, includeUnclassified: options.includeUnclassified).flatMap { getClassificationHierarchy(of: $0, options: options) }
+        return getClassificationHierarchy(of: classification, options: options)
+//        return getRootClassifications(type: type, includeUnclassified: options.includeUnclassified).flatMap { getClassificationHierarchy(of: $0, options: options) }
     }
     
     func moveClassifiedObject(from source: IndexSet, to destination: Int, classificationType: AssetClassificationType, hierarchyOptions: AssetClassificationHierarchyOptions) {
@@ -131,7 +142,7 @@ class AssetStore: BindableObject {
         
         if destination == 0 {
             // make unclassified
-            removeClassification(objectID: sourceObject.id, objectType: sourceObject.wrappedType, classificationType: classificationType)
+            removeClassification(object: sourceObject, classificationType: classificationType)
         } else {
             // find nearest parent classification
         
@@ -155,7 +166,7 @@ class AssetStore: BindableObject {
                 return
             }
             
-            changeClassification(objectID: sourceObject.id, objectType: sourceObject.wrappedType, classificationType: classificationType, newClassificationID: newClassificationID)
+            changeClassification(object: sourceObject, classificationType: classificationType, newClassificationID: newClassificationID)
         }
     }
     
@@ -166,6 +177,10 @@ class AssetStore: BindableObject {
     
 //    func deleteClassification(at source: IndexSet) {
 //
+//    }
+    
+//    func getSecurities() -> [Security] {
+//        return secu
 //    }
     
     // MARK: - Private Methods
@@ -211,28 +226,25 @@ class AssetStore: BindableObject {
     }
     
     // MARK: Concrete Classifiable
-    private func removeClassification(objectID: UUID, objectType: String, classificationType: AssetClassificationType) {
-        print(self.securityClassifications.count)
-        switch objectType {
-        case "Account":
-            self.accountClassifications = removeClassification(objectID: objectID, classificationType: classificationType.rawValue, assignments: accountClassifications)
-        case "Security":
-            self.securityClassifications = removeClassification(objectID: objectID, classificationType: classificationType.rawValue, assignments: securityClassifications)
+    private func removeClassification(object: AssetClassificationHierarchyObject, classificationType: AssetClassificationType) {
+        switch object.wrappedObject {
+        case let account as Account:
+            self.accountClassifications = removeClassification(objectID: account.id, classificationType: classificationType.rawValue, assignments: accountClassifications)
+        case let security as Security:
+            self.securityClassifications = removeClassification(objectID: security.id, classificationType: classificationType.rawValue, assignments: securityClassifications)
         default:
-            break
+            fatalError()
         }
-        
-        print(self.securityClassifications.count)
     }
     
-    private func changeClassification(objectID: UUID, objectType: String, classificationType: AssetClassificationType, newClassificationID: UUID) {
-        switch objectType {
-        case "Account":
-            self.accountClassifications = changeClassification(objectID: objectID, classificationType: classificationType.rawValue, newClassificationID: newClassificationID, assignments: accountClassifications)
-        case "Security":
-            self.securityClassifications = changeClassification(objectID: objectID, classificationType: classificationType.rawValue, newClassificationID: newClassificationID, assignments: securityClassifications)
+    private func changeClassification(object: AssetClassificationHierarchyObject, classificationType: AssetClassificationType, newClassificationID: UUID) {
+        switch object.wrappedObject {
+        case _ as Account:
+            self.accountClassifications = changeClassification(objectID: object.id, classificationType: classificationType.rawValue, newClassificationID: newClassificationID, assignments: accountClassifications)
+        case _ as Security:
+            self.securityClassifications = changeClassification(objectID: object.id, classificationType: classificationType.rawValue, newClassificationID: newClassificationID, assignments: securityClassifications)
         default:
-            break
+            fatalError()
         }
     }
 

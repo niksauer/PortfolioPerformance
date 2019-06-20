@@ -10,12 +10,14 @@ import Foundation
 import SwiftUI
 import Combine
 
-class BalanceSheetViewModel: ClassificationHierarchyViewModel {
+class BalanceSheetViewModel: GroupedClassificationHierarchyViewModel {
     
     // MARK: - Types
     typealias ClassificationType = AssetClassificationType
-    typealias FlatHierarchyObjectModel = AssetClassificationHierarchyObject
-    typealias FlatHierarchyObjectView = AssetClassificationHierarchyObjectView
+    typealias ClassificationObject = Classification
+    typealias HierarchyObject = AssetClassificationHierarchyObject
+    typealias HierarchyObjectView = AnyView
+    typealias ClassificationObjectView = BalanceSheetClassificationHeaderView
     
     // MARK: - Public Properties
     let didChange = PassthroughSubject<Void, Never>()
@@ -31,9 +33,9 @@ class BalanceSheetViewModel: ClassificationHierarchyViewModel {
     // MARK: - Private Properties
     @ObjectBinding private var assetStore: AssetStore = .shared
     
-    private let options = AssetClassificationHierarchyOptions(includeEntries: true, includeUnclassified: false, includeEmptyClassifications: false, disableClassificationMovement: true, disableAssetMovement: true, disableClassificationDeletion: true, disableAssetDeletion: true)
+    private let hierarchyOptions = AssetClassificationHierarchyOptions(includeEntries: true, includeUnclassified: true, includeEmptyClassifications: false, disableClassificationMovement: true, disableAssetMovement: true, disableClassificationDeletion: true, disableAssetDeletion: true)
     
-    // MARK: - Private Properties
+    // MARK: - Initilization
     init() {
         _ = assetStore.didChange.sink { assetStore in
             self.didChange.send(())
@@ -41,12 +43,29 @@ class BalanceSheetViewModel: ClassificationHierarchyViewModel {
     }
     
     // MARK: - Public Methods
-    func getFlatClassificationHierarchy(type: AssetClassificationType) -> [AssetClassificationHierarchyObject] {
-        return assetStore.getFlatRootClassificationHierarchy(type: type, options: options)
+    func getClassificationObjects(type: AssetClassificationType) -> [Classification] {
+        return assetStore.getRootClassifications(type: type, options: hierarchyOptions)
+    }
+
+    func getFlatClassificationHierarchy(type: AssetClassificationType, classification: Classification) -> [AssetClassificationHierarchyObject] {
+        return assetStore.getFlatClassificationHierarchy(type: type, classification: classification, options: hierarchyOptions)
     }
     
-    func getFlatHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AssetClassificationHierarchyObjectView {
-        return AssetClassificationHierarchyObjectView(object: object)
+    func getHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AnyView {
+        switch object.wrappedObject {
+        case let security as Security:
+            return AnyView(SecurityRowView(security: security))
+        case let account as Account:
+            return AnyView(AccountRowView(account: account))
+        default:
+            fatalError()
+        }
+    }
+
+    func getClassificationObjectView(_ classification: Classification) -> BalanceSheetClassificationHeaderView {
+        return BalanceSheetClassificationHeaderView(classification: classification, totalAssetValue: 1023.4, totalShare: 32.1, currency: .EUR)
     }
     
 }
+
+

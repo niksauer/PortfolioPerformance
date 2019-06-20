@@ -29,8 +29,9 @@ struct BalanceSheetView: View {
         return ActionSheet(title: Text("Klassifizierungstyp"), buttons: actions)
     }
     
+    // MARK: - View
     var body: some View {
-        ClassificationHierarchyView(viewModel: self.viewModel)
+        GroupedClassificationHierarchyView(viewModel: self.viewModel)
             .navigationBarTitle(Text("Vermögensaufstellung"), displayMode: .inline)
             .navigationBarItems(
                 leading:
@@ -41,7 +42,6 @@ struct BalanceSheetView: View {
                             Image(systemName: "list.bullet")
                         }
                         .presentation(self.showClassificationTypeSelection ? classificationTypeActionSheet : nil)
-
                     }
             )
     }

@@ -1,5 +1,5 @@
 //
-//  ClassifiedObjectsViewModel.swift
+//  AssetClassificationViewModel.swift
 //  Portfolio
 //
 //  Created by Nik Sauer on 16.06.19.
@@ -10,12 +10,12 @@ import Foundation
 import SwiftUI
 import Combine
 
-class AssetClassificationViewModel: ClassificationHierarchyViewModel {
-
+class AssetClassificationViewModel: FlatClassificationHierarchyViewModel {
+    
     // MARK: - Types
     typealias ClassificationType = AssetClassificationType
-    typealias FlatHierarchyObjectModel = AssetClassificationHierarchyObject
-    typealias FlatHierarchyObjectView = AssetClassificationHierarchyObjectView
+    typealias HierarchyObject = AssetClassificationHierarchyObject
+    typealias HierarchyObjectView = AssetClassificationHierarchyObjectView
     
     // MARK: - Public Properties
     let didChange = PassthroughSubject<Void, Never>()
@@ -45,8 +45,17 @@ class AssetClassificationViewModel: ClassificationHierarchyViewModel {
         return assetStore.getFlatClassificationHierarchy(type: type, options: hierarchyOptions)
     }
     
-    func getFlatHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AssetClassificationHierarchyObjectView {
-        return AssetClassificationHierarchyObjectView(object: object)
+    func getHierarchyObjectView(_ object: AssetClassificationHierarchyObject) -> AssetClassificationHierarchyObjectView {
+        switch object.wrappedObject {
+        case let classification as Classification:
+            return AssetClassificationHierarchyObjectView(title: classification.name, subtitle: nil, icon: classification.icon)
+        case let security as Security:
+            return AssetClassificationHierarchyObjectView(title: security.name, subtitle: security.supplier, icon: security.icon)
+        case let account as Account:
+            return AssetClassificationHierarchyObjectView(title: account.name, subtitle: nil, icon: account.icon)
+        default:
+            fatalError()
+        }
     }
     
     func moveHierarchyObject(from source: IndexSet, to destination: Int) {

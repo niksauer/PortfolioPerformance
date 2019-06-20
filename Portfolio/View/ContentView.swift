@@ -13,9 +13,9 @@ struct ContentView: View {
     let balanceSheetViewModel = BalanceSheetViewModel()
     
     var body: some View {        
-        return NavigationView {
-//            AssetClassificationView(viewModel: assetClassificationViewModel)
-            BalanceSheetView(viewModel: balanceSheetViewModel)
+        NavigationView {
+            AssetClassificationView(viewModel: assetClassificationViewModel)
+//            BalanceSheetView(viewModel: balanceSheetViewModel)
         }
     }
 }
